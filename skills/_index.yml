@@ -1,0 +1,29 @@
+generated: '2026-09-19'
+method: searched
+note: >-
+  Two files are provider-published and saved verbatim: the Claude skill from
+  github.com/kindrat86/vc-deal-flow-signal/claude-skill/SKILL.md (manifest version 1.5.0, MIT) and the
+  canonical AGENTS.md served at https://signals.gitdealflow.com/agents.md. The provider also serves a
+  schema.org skills manifest at /.well-known/skills.json (saved under well-known/). One additional skill
+  was generated here to ground the REST path in real operationIds for agents without an MCP client.
+skills:
+- file: gitdealflow-com-vc-signals.md
+  name: gitdealflow-vc-signals
+  method: searched
+  source: https://raw.githubusercontent.com/kindrat86/vc-deal-flow-signal/main/claude-skill/SKILL.md
+  api: mcp/gitdealflow-com-mcp.yml
+  operations: [get_trending_startups, search_startups_by_sector, get_startup_signal, get_signals_summary, get_scout_receipts, get_methodology]
+  transport: mcp
+- file: gitdealflow-com-agents.md
+  name: GitDealFlow / VC Deal Flow Signal Agent Reference (AGENTS.md)
+  method: searched
+  source: https://signals.gitdealflow.com/agents.md
+  api: openapi/gitdealflow-com-signals-openapi.yml
+  operations: [getSignals, getSignalsCSV, getAgentTools, getOpenapiV1]
+  transport: mcp, a2a, nlweb, rest
+- file: gitdealflow-com-lookup-startup-signal.md
+  name: Look up a startup signal (REST)
+  method: generated
+  api: openapi/gitdealflow-com-signals-openapi.yml
+  operations: [getSingleSignal, getSignals, getDiligenceDossier, getDeepSignal, getDeepSignalX402, getCredits]
+  transport: rest

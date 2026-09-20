@@ -1,0 +1,88 @@
+generated: '2026-09-19'
+method: searched
+source: >-
+  Harvested only — nothing here decides whether a regime applies. Sources: well-known/ documents saved
+  this pass (compliance.json lastReviewed 2026-09-18, ai-policy.json lastUpdated 2026-09-12, model.json,
+  security.txt on both hosts), https://gitdealflow.com/privacy (Last updated September 16, 2026),
+  https://gitdealflow.com/terms (April 14, 2026), https://signals.gitdealflow.com/support, and live
+  probes of the conventional legal paths listed under probes.
+operator:
+  name: GitDealFlow (VC Deal Flow Signal)
+  governing_law: Republic of Cyprus (terms §12)
+  contact: signals@gitdealflow.com
+  hosting: Vercel — EU fra1 primary, US iad1 failover (compliance.json, model.json)
+signals:
+  subprocessors:
+    present: true
+    pointer: Subprocessors
+    url: https://signals.gitdealflow.com/.well-known/compliance.json
+    file: well-known/gitdealflow-com-compliance.json
+    evidence: 'subprocessors[] table naming Vercel (hosting), Stripe (payments), Resend (email), PostHog EU (analytics), PocketBase self-hosted on Hetzner (subscriber records), each with a DPA URL; document lastReviewed 2026-09-18. The privacy policy §4 lists the same processors. /legal/subprocessors on the apex 404s.'
+  data_residency:
+    present: true
+    pointer: DataResidency
+    url: https://signals.gitdealflow.com/.well-known/compliance.json
+    file: well-known/gitdealflow-com-compliance.json
+    stated_verbatim: ['EU (Vercel fra1, primary)', 'US (Vercel iad1, failover)']
+    evidence: compliance.json gdpr.dataResidency and model.json privacy.dataResidency; privacy policy §11 names SCCs / adequacy (Stripe under the EU-U.S. Data Privacy Framework, Resend US, PostHog EU)
+  incident_notification:
+    present: true
+    pointer: IncidentNotification
+    url: https://signals.gitdealflow.com/.well-known/compliance.json
+    file: well-known/gitdealflow-com-compliance.json
+    stated_sla: '72 hours from confirmed breach (GDPR Art. 33)'
+    evidence: compliance.json incidentResponse {breachNotificationSla, responseEmail, publicLog https://signals.gitdealflow.com/corrections}; security.txt comment "We aim to acknowledge within 72 hours"
+  data_subject_request:
+    present: true
+    pointer: DataSubjectRequest
+    url: https://gitdealflow.com/privacy
+    evidence: 'privacy policy §12 enumerates GDPR rights (access, rectification, erasure, restriction, portability, objection, withdraw consent, complain to a DPA) with the channel "contact us at signals@gitdealflow.com"; compliance.json gdpr.rightsContact. No self-serve request form (/privacy/requests not probed as a distinct path; the policy is the mechanism).'
+  ai_transparency:
+    present: true
+    pointer: AITransparency
+    url: https://signals.gitdealflow.com/.well-known/ai-policy.json
+    file: well-known/gitdealflow-com-ai-policy.json
+    evidence: 'ai-policy.json (schemaVersion 1.0, lastUpdated 2026-09-12) declares per-crawler allow/disallow and permitted uses (training / answer / citation) for GPTBot, ChatGPT-User, OAI-SearchBot, ClaudeBot, Claude-Web, anthropic-ai, PerplexityBot and others; compliance.json aiUsage states userDataUsedForTraining false and names Anthropic as the inference provider for /api/ask and /api/answer with no user data persisted; robots.txt explicitly allows AI crawlers.'
+  exit_assistance:
+    present: true
+    pointer: ExitAssistance
+    url: https://signals.gitdealflow.com/.well-known/compliance.json
+    file: well-known/gitdealflow-com-compliance.json
+    stated_verbatim: 'Self-serve at /account or by emailing signals@gitdealflow.com. Subscriber data deleted within 30 days; Stripe records retained per tax law.'
+    evidence: compliance.json enterprise.offboarding; support page documents self-serve cancellation at /cancel and a Stripe customer portal; data is CC BY 4.0 and exportable as CSV/JSON/NDJSON so no lock-in on the data itself
+  training_data_summary:
+    present: false
+    note: /.well-known/model.json is a model card for a dataset + retrieval API ("Not a model in the trained-weights sense") listing its data sources; it is not a training-content summary for a general-purpose AI model, so nothing is claimed
+  global_privacy_control:
+    present: false
+    note: no published GPC statement; compliance.json ccpa.sellOrShare false with an opt-out URL is a CCPA statement, not a GPC commitment (and no header was sent to test it)
+  accessibility_conformance:
+    present: false
+    evidence: https://gitdealflow.com/accessibility 404; no VPAT or WCAG statement found
+  sbom:
+    present: false
+    note: search only — none published
+  support_lifetime:
+    present: false
+    note: no stated support period; the only durability statement is "The 10 free MCP tools are free in perpetuity" (agents.md), a pricing commitment rather than a product-security support window
+  age_assurance:
+    present: false
+  notice_and_action:
+    present: false
+    note: https://signals.gitdealflow.com/corrections is named as a public corrections log in compliance.json (not probed for substance); no notice-and-action mechanism for user content — the service hosts none
+  transparency_report:
+    present: false
+certifications:
+  published: false
+  evidence: compliance.json — soc2 not_certified, iso27001 not_certified, pci not_applicable_offloaded (Stripe PCI-DSS Level 1), hipaa not_applicable
+probes:
+- {url: https://gitdealflow.com/accessibility, status: 404}
+- {url: https://gitdealflow.com/legal/subprocessors, status: 404}
+- {url: https://gitdealflow.com/security, status: 404}
+- {url: https://gitdealflow.com/privacy, status: 200}
+- {url: https://gitdealflow.com/terms, status: 200}
+- {url: https://signals.gitdealflow.com/.well-known/compliance.json, status: 200}
+- {url: https://signals.gitdealflow.com/.well-known/ai-policy.json, status: 200}
+- {url: https://signals.gitdealflow.com/.well-known/model.json, status: 200}
+- {url: https://signals.gitdealflow.com/privacy, status: 200}
+- {url: https://signals.gitdealflow.com/support, status: 200}

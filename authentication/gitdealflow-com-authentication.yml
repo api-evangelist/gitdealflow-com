@@ -1,0 +1,45 @@
+generated: '2026-09-19'
+method: searched
+source: openapi/gitdealflow-com-signals-openapi.yml (securitySchemes.creditPackKey, per-operation security, getDeepSignalX402 description), https://signals.gitdealflow.com/agents/credits, https://signals.gitdealflow.com/developers, https://signals.gitdealflow.com/.well-known/oauth-authorization-server, https://signals.gitdealflow.com/.well-known/mcp.json, live probes 2026-09-19 (401 body on POST /api/agent/deep-signal, 402 on /x402, 200 token from /api/oauth/token)
+docs: https://signals.gitdealflow.com/agents/credits
+summary:
+  types: [none, http-bearer, x402-payment, oauth2-client-credentials]
+  default: none — 34 of 37 operations and all 11 free MCP tools require no credentials
+  global_security: null (spec declares security per operation only)
+schemes:
+- name: none
+  type: none
+  applies_to: every GET route (signals, answers, search, badges, citations, pricing, changelog, dataset, methodology, glossary, receipts, markets, scout predict) and the MCP/A2A/NLWeb endpoints
+  observed: 200 anonymous on /api/signals.json, /api/openapi.json, MCP initialize/tools/list, A2A tasks/get, NLWeb GET
+- name: creditPackKey
+  type: http
+  scheme: bearer
+  bearerFormat: gdf_v2.<customerId>.<hmac>
+  description: Per-request credit-pack API key delivered by email after Stripe checkout (EUR 19 = 100 credits). HMAC-keyed, validated without a database lookup per the credits page. Format gdf_v2.<stripe_customer_id>.<hmac16>.
+  header: 'Authorization: Bearer gdf_v2.…'
+  operations: [getDeepSignal, redeemDeepSignalSolana, getCredits]
+  mcp_env: GITDEALFLOW_API_KEY (stdio package, paid tools)
+  failure: 401 {"error":"missing_api_key", ...purchaseUrl, x402Url} (observed); 402 when credits are exhausted
+  obtain: https://signals.gitdealflow.com/agents/credits
+  rotation: 'support page: never email the full key; send the first eight characters and support verifies or rotates it'
+  sources: [openapi/gitdealflow-com-signals-openapi.yml]
+- name: x402
+  type: payment
+  scheme: x402 (HTTP 402 + EIP-3009 transferWithAuthorization, USDC on Base mainnet)
+  header: X-PAYMENT (request) / X-PAYMENT-RESPONSE and PAYMENT-REQUIRED (response)
+  operations: [getDeepSignalX402]
+  description: No account or key; the agent's wallet signs each request. 402 challenge observed with accepts[] {scheme exact, network base, asset 0x8335…2913 USDC, maxAmountRequired 190000, maxTimeoutSeconds 30}; settled by the Coinbase x402 facilitator. Misses (404) are not charged.
+- name: oauth2-client-credentials
+  type: oauth2
+  flow: clientCredentials
+  token_url: https://signals.gitdealflow.com/api/oauth/token
+  scopes: {mcp:read: Read access to the MCP server}
+  client_authentication: none (anonymous clients receive a token)
+  required: false
+  applies_to: https://signals.gitdealflow.com/api/mcp/rpc
+  metadata: https://signals.gitdealflow.com/.well-known/oauth-authorization-server
+  observed: POST grant_type=client_credentials&scope=mcp:read -> 200, Bearer JWT, expires_in 3600
+  detail: scopes/gitdealflow-com-scopes.yml
+key_prefixes:
+  gdf_v2: credit-pack API key (paid REST routes / paid MCP tool)
+test_mode: none — no sandbox or test keys are published (sandbox/ intentionally absent)

@@ -1,0 +1,28 @@
+generated: '2026-09-19'
+method: searched
+source: https://signals.gitdealflow.com/.well-known/oauth-authorization-server (RFC 8414), https://signals.gitdealflow.com/.well-known/mcp.json endpoints.oauth, live POST https://signals.gitdealflow.com/api/oauth/token (grant_type=client_credentials, 2026-09-19)
+docs: https://signals.gitdealflow.com/agents.md
+note: >-
+  The OpenAPI declares no oauth2 securityScheme (derive-oauth-scopes.py found nothing to derive), but
+  the MCP host publishes OAuth 2.0 authorization-server metadata with a single scope. The token endpoint
+  issues a Bearer JWT to anonymous callers (token_endpoint_auth_methods_supported [none]) — it is an
+  optional, identity-less capability token for the MCP server, "required: false" per mcp.json. The paid
+  REST route uses a separate credit-pack bearer key, not OAuth.
+issuer: https://signals.gitdealflow.com
+token_endpoint: https://signals.gitdealflow.com/api/oauth/token
+authorization_endpoint: null
+grant_types: [client_credentials]
+token_endpoint_auth_methods: [none]
+response_types: []
+token:
+  type: Bearer (JWT, HS256 per header)
+  expires_in: 3600
+  observed: 200 with access_token, token_type Bearer, expires_in 3600, scope mcp:read
+scopes:
+- scope: mcp:read
+  description: Read access to the MCP server tools/resources/prompts (all free tools are readable without it; the scope exists so clients that insist on a token can obtain one)
+  required: false
+  applies_to: https://signals.gitdealflow.com/api/mcp/rpc
+scope_count: 1
+protected_resource_metadata: absent (/.well-known/oauth-protected-resource 404 on the MCP host)
+dynamic_client_registration: absent (no registration_endpoint in metadata)

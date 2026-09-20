@@ -1,0 +1,151 @@
+generated: '2026-09-19'
+method: derived
+source: openapi/gitdealflow-com-signals-openapi.yml components.schemas + response $refs; https://signals.gitdealflow.com/methodology
+  for field semantics
+entities:
+- name: SignalsResponse
+  description: Whole-panel document returned by getSignals / getSignalsV1
+  fields:
+  - meta
+  - trending[]
+  - sectors[]
+  operations:
+  - getSignals
+  - getSignalsV1
+- name: Sector
+  description: One of 15 active sectors (slug, name, url, startupCount)
+  id_field: slug
+  id_examples:
+  - healthcare
+  - web3
+  - data-infrastructure
+  fields:
+  - name
+  - slug
+  - description
+  - url
+  - startupCount
+  - startups[]
+- name: Startup
+  description: Tracked startup with 14-day engineering signal
+  id_field: name (display name) or GitHub org slug (githubUrl)
+  fields:
+  - name
+  - description
+  - stage
+  - geography
+  - commitVelocity14d
+  - commitVelocityChange
+  - contributors
+  - contributorGrowth
+  - newRepos
+  - signalType
+  - githubUrl
+  - websiteUrl
+  - linkedinUrl
+  operations:
+  - getSingleSignal
+  - getSignals
+  - getSignalsCSV
+  - getDatasetJsonl
+- name: DeepSignal
+  description: 'Paid enrichment of one Startup: composite scores, sector rank, thesis, comparables, credit accounting'
+  required:
+  - found
+  fields:
+  - found
+  - name
+  - sector
+  - stage
+  - geography
+  - signalType
+  - scores
+  - rank
+  - thesis
+  - comparables[]
+  - balance
+  - charged
+  - citation
+  operations:
+  - getDeepSignal
+  - getDeepSignalX402
+- name: AnswerHit
+  description: Citation-ready answer to a question
+  fields:
+  - question
+  - answer
+  - url
+  - source
+  - confidence
+  - facts[]
+  - related[]
+  operations:
+  - getAnswer
+  - askQuestion
+- name: SearchHit
+  description: Site-search result
+  fields:
+  - url
+  - title
+  - snippet
+  - type
+  - score
+  operations:
+  - llmsSearch
+- name: ScoutReceipt
+  description: Scout Score (0-100) for a GitHub user — response schema is inline, not a named component
+  id_field: username
+  operations:
+  - getScoutReceipts
+  - getScoutBadge
+  schema_named: false
+- name: Market
+  description: Open prediction market with candidates — inline schema
+  id_field: slug
+  operations:
+  - getMarket
+  schema_named: false
+- name: CreditAccount
+  description: Credit balance for a gdf_v2 key (balance, purchased, consumed, lastConsumedAt, purchaseUrl)
+  operations:
+  - getCredits
+  schema_named: false
+relationships:
+- from: SignalsResponse
+  to: Startup
+  type: has_many
+  via: trending
+- from: SignalsResponse
+  to: Sector
+  type: has_many
+  via: sectors
+- from: Sector
+  to: Startup
+  type: has_many
+  via: startups
+- from: Startup
+  to: Sector
+  type: belongs_to
+  via: containing sectors[] entry (Startup carries no sector field of its own; DeepSignal.sector names it)
+- from: DeepSignal
+  to: Startup
+  type: has_one
+  via: name (lookup key), enriches the same entity
+- from: DeepSignal
+  to: Startup
+  type: has_many
+  via: comparables[]
+- from: DeepSignal
+  to: CreditAccount
+  type: belongs_to
+  via: balance / charged (per-call accounting)
+- from: ScoutReceipt
+  to: Startup
+  type: has_many
+  via: validated unicorns starred early (per docs; inline schema)
+id_conventions:
+  startup: display name or GitHub org slug, case-insensitive, normalization-tolerant
+  sector: kebab-case slug enumerated live (15 in q3-2026)
+  period: quarter slug q3-2026
+  api_key: gdf_v2.<stripe_customer_id>.<hmac16>
+render: null

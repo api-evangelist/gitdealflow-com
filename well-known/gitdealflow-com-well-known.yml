@@ -1,0 +1,86 @@
+generated: '2026-09-19'
+method: probed
+source: live probes 2026-09-19 of the registrable domain, its www alias and the API/MCP/A2A host signals.gitdealflow.com
+note: >-
+  Two hosts carry real documents. The apex serves an RFC 9116 security.txt, an A2A agent card and an
+  mcp.json; www.gitdealflow.com 308-redirects every path to the apex (recorded, not double-counted).
+  signals.gitdealflow.com — the API, MCP, A2A and NLWeb host — serves security.txt, RFC 8414
+  oauth-authorization-server metadata (with a live anonymous client_credentials token endpoint),
+  an openid-configuration document (partial: no authorization/jwks endpoints), an RFC 9727
+  api-catalog linkset, the A2A card at both canonical and legacy paths, an MCP discovery manifest
+  and server card, plus provider-authored skills.json, model.json, compliance.json, ai-policy.json,
+  webfinger and host-meta. The negative control (a path that cannot exist) returned 404, so hits
+  are not path echoes. No host serves api-catalog.json, ai-plugin.json (api-catalog names one that
+  404s), ucp.json, acp.json, aauth-resource.json, oauth-protected-resource, apis.json or apis.yml.
+hit_count: 20
+path_echo_control: passed
+hosts:
+- host: https://gitdealflow.com
+  documents:
+  - {path: /.well-known/security.txt, status: 200, file: gitdealflow-com-security.txt}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/api-catalog.json, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/ucp.json, status: 404}
+  - {path: /.well-known/acp.json, status: 404}
+  - {path: /.well-known/aauth-resource.json, status: 404}
+  - {path: /.well-known/apis.json, status: 404}
+  - {path: /apis.json, status: 404}
+  - {path: /apis.yml, status: 404}
+  - {path: /.well-known/agent-card.json, status: 200, file: ../a2a/gitdealflow-com-apex-agent-card.json}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /.well-known/mcp.json, status: 200, file: gitdealflow-com-apex-mcp.json}
+  - {path: /security.txt, status: 404}
+  - {path: /llms.txt, status: 200, file: ../llms/gitdealflow-com-llms.txt}
+- host: https://www.gitdealflow.com
+  note: every path answers 308 Permanent Redirect to the same path on https://gitdealflow.com; the apex rows above are the served documents
+  documents:
+  - {path: /.well-known/security.txt, status: 308}
+  - {path: /.well-known/openid-configuration, status: 308}
+  - {path: /.well-known/oauth-authorization-server, status: 308}
+  - {path: /.well-known/oauth-protected-resource, status: 308}
+  - {path: /.well-known/api-catalog, status: 308}
+  - {path: /.well-known/api-catalog.json, status: 308}
+  - {path: /.well-known/ai-plugin.json, status: 308}
+  - {path: /.well-known/ucp.json, status: 308}
+  - {path: /.well-known/acp.json, status: 308}
+  - {path: /.well-known/aauth-resource.json, status: 308}
+  - {path: /.well-known/apis.json, status: 308}
+  - {path: /apis.json, status: 308}
+  - {path: /apis.yml, status: 308}
+  - {path: /.well-known/agent-card.json, status: 308}
+  - {path: /.well-known/agent.json, status: 308}
+  - {path: /.well-known/mcp.json, status: 308}
+- host: https://signals.gitdealflow.com
+  role: API host, OpenAPI servers[0], MCP server host, A2A endpoint host, NLWeb host, OAuth issuer
+  documents:
+  - {path: /.well-known/security.txt, status: 200, file: gitdealflow-com-signals-security.txt}
+  - {path: /.well-known/openid-configuration, status: 200, file: gitdealflow-com-openid-configuration.json, note: partial OIDC discovery — issuer + token_endpoint + client_credentials only, no authorization_endpoint or jwks_uri}
+  - {path: /.well-known/oauth-authorization-server, status: 200, file: gitdealflow-com-oauth-authorization-server.json, note: RFC 8414; token endpoint issues anonymous client_credentials tokens for scope mcp:read (probed 200, expires_in 3600)}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 200, file: gitdealflow-com-api-catalog.json, note: RFC 9727 application/linkset+json}
+  - {path: /.well-known/api-catalog.json, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404, note: named in the api-catalog linkset but not served}
+  - {path: /.well-known/ucp.json, status: 404}
+  - {path: /.well-known/acp.json, status: 404}
+  - {path: /.well-known/aauth-resource.json, status: 404}
+  - {path: /.well-known/apis.json, status: 404}
+  - {path: /apis.json, status: 404}
+  - {path: /apis.yml, status: 404}
+  - {path: /.well-known/agent-card.json, status: 200, file: ../a2a/gitdealflow-com-agent-card.json}
+  - {path: /.well-known/agent.json, status: 200, file: ../a2a/gitdealflow-com-agent-card.json, note: byte-identical to agent-card.json}
+  - {path: /.well-known/mcp.json, status: 200, file: gitdealflow-com-mcp.json}
+  - {path: /.well-known/mcp/server-card.json, status: 200, file: gitdealflow-com-mcp-server-card.json}
+  - {path: /.well-known/skills.json, status: 200, file: gitdealflow-com-skills.json, note: schema.org ItemList of HowTo skills mapped to MCP prompts}
+  - {path: /.well-known/model.json, status: 200, file: gitdealflow-com-model.json}
+  - {path: /.well-known/compliance.json, status: 200, file: gitdealflow-com-compliance.json}
+  - {path: /.well-known/ai-policy.json, status: 200, file: gitdealflow-com-ai-policy.json}
+  - {path: /.well-known/nlweb.json, status: 200, file: gitdealflow-com-nlweb.json}
+  - {path: /.well-known/host-meta, status: 200, file: gitdealflow-com-host-meta.xml}
+  - {path: '/.well-known/webfinger?resource=acct:gitdealflow@gitdealflow.com', status: 200, file: gitdealflow-com-webfinger.json}
+  - {path: /.well-known/agents.md, status: 404, note: named by the provider's claude-skill manifest; the served copy is /agents.md (200)}
+  - {path: /security.txt, status: 200, note: same body as the well-known path}
+  - {path: /.well-known/gitdealflow-com-negative-control-7f3ab91c.json, status: 404, note: negative control — host does not echo arbitrary well-known paths}

@@ -1,0 +1,96 @@
+generated: '2026-09-19'
+method: searched
+source: live probes of signals.gitdealflow.com and gitdealflow.com (2026-09-19), openapi/gitdealflow-com-signals-openapi.yml, well-known/ documents saved this pass
+domain_standard:
+  status: none
+  note: >-
+    Alternative-data / venture-research APIs have no sector interchange standard to declare (nothing
+    comparable to FDX, FHIR or SCIM), and none is claimed; reward-only, so nothing is asserted. The
+    provider does self-describe with cross-cutting web standards (RFC 8414, RFC 9116, RFC 9727,
+    RFC 7033, RFC 6415, schema.org JSON-LD, MCP, A2A, x402, NLWeb) recorded below, and ships a
+    Frictionless datapackage.json for the dataset in its GitHub repository.
+standards:
+- id: oauth2
+  name: OAuth 2.0 authorization-server metadata (RFC 8414) + client_credentials grant
+  conforms: true
+  evidence: https://signals.gitdealflow.com/.well-known/oauth-authorization-server (200; issuer, token_endpoint, grant_types_supported [client_credentials], scopes_supported [mcp:read], token_endpoint_auth_methods_supported [none]); POST https://signals.gitdealflow.com/api/oauth/token grant_type=client_credentials answered 200 with a Bearer token, expires_in 3600, scope mcp:read
+  scope: optional for the MCP server; free REST/MCP routes require no token
+- id: oidc
+  name: OpenID Connect Discovery
+  conforms: false
+  evidence: https://signals.gitdealflow.com/.well-known/openid-configuration (200) carries issuer/token_endpoint only; response_types_supported and id_token_signing_alg_values_supported are empty, no authorization_endpoint, jwks_uri or userinfo_endpoint — a token issuer, not an OpenID Provider
+- id: oauth-protected-resource
+  name: OAuth 2.0 Protected Resource Metadata (RFC 9728)
+  conforms: false
+  evidence: /.well-known/oauth-protected-resource 404 on gitdealflow.com and signals.gitdealflow.com (MCP host)
+- id: security-txt
+  name: RFC 9116 security.txt
+  conforms: true
+  evidence: https://gitdealflow.com/.well-known/security.txt (200; Contact, Expires 2027-07-20, Canonical) and https://signals.gitdealflow.com/.well-known/security.txt (200; adds Policy)
+- id: api-catalog
+  name: RFC 9727 api-catalog linkset
+  conforms: true
+  evidence: https://signals.gitdealflow.com/.well-known/api-catalog (200, application/linkset+json; service-desc, service-doc, item, license relations)
+- id: mcp
+  name: Model Context Protocol 2025-06-18 (Streamable HTTP)
+  conforms: true
+  evidence: POST https://signals.gitdealflow.com/api/mcp/rpc initialize -> protocolVersion 2025-06-18, serverInfo vc-deal-flow-signal 2.2.2; tools/list 12 tools with inputSchema/outputSchema/annotations; resources/list 3; prompts/list 7
+- id: a2a
+  name: Agent2Agent protocol 0.3.0 (JSON-RPC transport)
+  conforms: true
+  evidence: https://signals.gitdealflow.com/.well-known/agent-card.json graded conformant (see a2a/gitdealflow-com-a2a.yml); POST https://signals.gitdealflow.com/api/a2a returns JSON-RPC 2.0 error -32001 for an unknown task id
+- id: x402
+  name: x402 HTTP-402 micropayments (EIP-3009 USDC on Base)
+  conforms: true
+  evidence: POST https://signals.gitdealflow.com/api/agent/deep-signal/x402 without payment -> 402 with PAYMENT-REQUIRED header (x402Version 2) and body accepts[] {scheme exact, network base, asset USDC, maxAmountRequired 190000}
+- id: nlweb
+  name: Microsoft NLWeb conversational endpoint
+  conforms: true
+  evidence: GET https://signals.gitdealflow.com/api/nlweb (200 descriptor, protocol nlweb 0.1.0, JSON-LD responses); /.well-known/nlweb.json (200)
+- id: webfinger
+  name: RFC 7033 WebFinger
+  conforms: true
+  evidence: https://signals.gitdealflow.com/.well-known/webfinger?resource=acct:gitdealflow@gitdealflow.com (200 application/jrd+json)
+- id: host-meta
+  name: RFC 6415 host-meta
+  conforms: true
+  evidence: https://signals.gitdealflow.com/.well-known/host-meta (200 application/xrd+xml)
+- id: json-ld
+  name: schema.org JSON-LD machine descriptors
+  conforms: true
+  evidence: /.well-known/skills.json (ItemList of HowTo), /api/v1/uptime.json (TechArticle, application/ld+json), NLWeb responses (ItemList/Organization/Article/Dataset)
+- id: llms-txt
+  name: llms.txt
+  conforms: true
+  evidence: https://gitdealflow.com/llms.txt (200, 13 KB) and https://signals.gitdealflow.com/llms.txt (200, 304 KB); llms-full.txt on both hosts
+- id: openapi-3.1
+  name: OpenAPI 3.1.0 contract
+  conforms: true
+  evidence: https://signals.gitdealflow.com/api/openapi.json (200, openapi 3.1.0, 37 operations, servers[0] https://signals.gitdealflow.com, contact signals@gitdealflow.com)
+- id: cc-by-4.0
+  name: Creative Commons BY 4.0 data licence declared in the contract
+  conforms: true
+  evidence: openapi info.license (CC BY 4.0), agent card license field, api-catalog license relation
+- id: rfc9457
+  name: RFC 9457 Problem Details
+  conforms: false
+  evidence: errors are plain JSON {error, message} (observed 401/402 bodies); no application/problem+json in the spec
+- id: rfc8594
+  name: RFC 8594 Sunset / Deprecation headers
+  conforms: false
+  evidence: no deprecated operations in the spec, no Sunset/Deprecation policy published (lifecycle/gitdealflow-com-lifecycle.yml)
+- id: pagination
+  name: Pagination convention
+  conforms: null
+  evidence: not applicable — list surfaces are whole-panel bulk documents (/api/signals.json, /api/dataset.jsonl); only limit query params on /api/ask and /api/llms-search
+- id: idempotency
+  name: Idempotency-Key replay protection
+  conforms: false
+  evidence: no Idempotency-Key header documented; the only mutating routes are metered POSTs (see conventions/gitdealflow-com-conventions.yml)
+- id: frictionless-datapackage
+  name: Frictionless Data Package descriptor for the dataset
+  conforms: true
+  evidence: https://raw.githubusercontent.com/kindrat86/vc-deal-flow-signal/main/distribution/dataset/datapackage.json (200); Hugging Face Datasets and Zenodo DOI 10.5281/zenodo.19650920 releases per the MCP README
+compliance_certifications:
+  published: false
+  evidence: https://signals.gitdealflow.com/.well-known/compliance.json states soc2 not_certified, iso27001 not_certified, pci not_applicable_offloaded (Stripe), hipaa not_applicable; relies on Vercel/Stripe SOC 2 as processors — so no Compliance pointer is emitted

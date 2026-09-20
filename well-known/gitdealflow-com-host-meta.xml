@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XRD xmlns="http://docs.oasis-open.org/ns/xri/xrd-1.0">
+  <Subject>https://signals.gitdealflow.com</Subject>
+  <Property type="http://schema.org/name">VC Deal Flow Signal</Property>
+  <Link rel="lrdd" type="application/jrd+json" template="https://signals.gitdealflow.com/.well-known/webfinger?resource={uri}"/>
+  <Link rel="self" type="application/json" href="https://signals.gitdealflow.com/api/agents.json"/>
+  <Link rel="alternate" type="text/markdown" href="https://signals.gitdealflow.com/AGENTS.md"/>
+  <Link rel="alternate" type="text/plain" href="https://signals.gitdealflow.com/llms.txt"/>
+  <Link rel="http://schema.org/EntryPoint" type="application/json" href="https://signals.gitdealflow.com/api/openapi.json"/>
+  <Link rel="http://docs.oasis-open.org/ns/xri/xrd-1.0" href="https://signals.gitdealflow.com/.well-known/api-catalog"/>
+</XRD>

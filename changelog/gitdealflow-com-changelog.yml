@@ -1,0 +1,114 @@
+generated: '2026-09-19'
+method: probed
+source: https://signals.gitdealflow.com/api/changelog.json (machine-readable data changelog, lastUpdated 2026-09-19),
+  openapi info.x-changelog, registry.npmjs.org/@gitdealflow/mcp-signal time map
+scheme:
+  openapi: semver in info.version (currently 1.4.0; x-changelog entries to 1.3.0 dated 2026-05-08) plus /api/v1/*
+    path aliases as the stable URL contract
+  data: quarterly period slugs (q3-2026) refreshed weekly on Mondays
+  mcp_package: semver (2.2.2)
+current:
+  openapi_version: 1.4.0
+  spec_revision_date: '2026-05-08'
+  data_period: q3-2026
+  startups_tracked: 411
+  sectors_active: 15
+  mcp_package_version: 2.2.2
+  mcp_server_version_live: 2.2.2
+update_frequency: weekly (Monday)
+human_changelog: https://signals.gitdealflow.com/api/v1/changelog.json (no separate HTML changelog page found; /changelog
+  on the apex 404s)
+entries:
+- surface: openapi
+  version: 1.3.0
+  date: '2026-05-08'
+  breaking: false
+  additions:
+  - Added `info.x-rate-limit` default (60/min/IP, burst 120) so paid agents discover throttling without hitting
+    429.
+  - Added per-operation `x-rate-limit` overrides on /api/signal (30/min/IP) and /api/receipts/{username} (10/min/IP).
+  - Added `x-mcp.skillsManifest` and `x-mcp-server.skillsManifest` pointing to /.well-known/skills.json, Anthropic-style
+    skills card enumerating the 5 MCP prompts as agent-callable skills with explicit invoke contracts.
+  - Added 11 extension-stripped /api/v1/<resource> aliases (signals, faq, methodology, glossary, answers, openapi,
+    agents, changelog, dataset, pricing, uptime) for agents that strip file extensions; canonical URLs remain at
+    .json/.jsonl variants.
+- surface: openapi
+  version: 1.2.0
+  date: '2026-05-07'
+  breaking: false
+  additions:
+  - Added x-mcp-tool extensions to 6 operations with MCP analogs (get_signals_summary, get_startup_signal, get_scout_receipts,
+    get_methodology, get_deep_signal x2 variants).
+  - Added top-level x-mcp-server with full tool/resource/prompt enumeration including HTTP analog mapping.
+  - Documented 9 /api/v1/* versioned endpoints (signals, agents, answers, changelog, dataset, faq, methodology,
+    glossary, openapi).
+- surface: openapi
+  version: 1.1.0
+  date: '2026-04-22'
+  breaking: false
+  additions:
+  - Initial public spec.
+- surface: data
+  version: q3-2026
+  name: Q3 2026
+  current: true
+  sectors_active: 15
+  startups_tracked: 411
+  breaking: false
+  highlights:
+  - '15 sectors, 411 startups (sector set reduced from 20 to 15 vs Q2 2026: ai-ml, fintech, climate-tech, developer-tools,
+    cybersecurity dropped)'
+- surface: data
+  version: q2-2026
+  name: Q2 2026
+  current: false
+  sectors_active: 20
+  startups_tracked: 480
+  breaking: false
+  highlights:
+  - 20 sectors, 480 startups
+- surface: data
+  version: q1-2026
+  name: Q1 2026
+  current: false
+  sectors_active: 20
+  startups_tracked: 437
+  breaking: false
+  highlights:
+  - 20 sectors, 437 startups
+- surface: mcp-package
+  version: 2.2.2
+  date: '2026-08-16'
+  breaking: false
+  highlights:
+  - '@gitdealflow/mcp-signal 2.2.2 published to npm'
+- surface: mcp-package
+  version: 2.2.0
+  date: '2026-05-30'
+  breaking: false
+  highlights:
+  - '@gitdealflow/mcp-signal 2.2.0 published to npm'
+- surface: mcp-package
+  version: 2.1.0
+  date: '2026-05-30'
+  breaking: false
+  highlights:
+  - '@gitdealflow/mcp-signal 2.1.0 published to npm'
+- surface: mcp-package
+  version: 2.0.0
+  date: '2026-05-04'
+  breaking: true
+  highlights:
+  - '@gitdealflow/mcp-signal 2.0.0 published to npm (major)'
+- surface: mcp-package
+  version: 1.5.0
+  date: '2026-04-26'
+  breaking: false
+  highlights:
+  - '@gitdealflow/mcp-signal 1.5.0 published to npm'
+- surface: mcp-package
+  version: 1.0.0
+  date: '2026-04-16'
+  breaking: false
+  highlights:
+  - '@gitdealflow/mcp-signal 1.0.0 published to npm'

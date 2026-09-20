@@ -1,0 +1,37 @@
+generated: '2026-09-19'
+method: searched
+source: https://signals.gitdealflow.com/developers, https://signals.gitdealflow.com/.well-known/api-catalog (item links), openapi/gitdealflow-com-signals-openapi.yml (badges tag), https://gitdealflow.com/chrome, https://github.com/kindrat86/mcp-deal-flow-signal#readme
+description: Client-side / embeddable surfaces distinct from the packages in packages/ — embeddable SVG badges served by the API, two browser extensions and a bookmarklet.
+families:
+- family: Embeddable SVG badges
+  kind: hosted image embeds
+  loader: none (plain <img src>)
+  components:
+  - name: Scout Score badge
+    url_template: https://signals.gitdealflow.com/api/badge/scout/{username}/svg
+    operation: getScoutBadge
+  - name: Repo momentum badge
+    url_template: https://signals.gitdealflow.com/api/badge/momentum/{org}/{repo}/svg
+    operation: getMomentumBadge
+  - name: Built with VC Deal Flow Signal badge
+    url: https://signals.gitdealflow.com/api/badge/built-with/svg
+    operation: getBuiltWithBadge
+  - name: Key Statistics embeddable badges
+    url: https://signals.gitdealflow.com/stats
+    note: per llms.txt, headline-number badges for embedding; stats also at /stats.json
+- family: Browser extensions
+  kind: Chromium Manifest V3 extensions
+  components:
+  - name: VC Deal Flow Signal — Crunchbase + Wellfound badge
+    url: https://chromewebstore.google.com/detail/hehkgipiamajnnlpkfhpeoeaoaogmknn
+    landing: https://gitdealflow.com/chrome
+    behaviour: injects an "Accelerating" badge on crunchbase.com/organization/* and wellfound.com/company/* pages; one API call per page, no account, no analytics
+  - name: VC GitHub Lookup — Startup Signals on Hover
+    url: https://chromewebstore.google.com/detail/vc-github-lookup-%E2%80%94-startu/plgngijmloeljfkenecdkhiblcfcbblm
+    behaviour: hover chip on GitHub repo/org links showing 14-day commit velocity, contributor growth, signal type
+- family: Bookmarklet
+  kind: bookmarklet
+  components:
+  - name: GitDealFlow bookmarklet
+    url: https://signals.gitdealflow.com/developers
+    note: linked from the developers page ("Install the bookmarklet"); install page not separately probed

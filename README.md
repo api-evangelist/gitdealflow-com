@@ -64,5 +64,13 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-GitDealFlow is a company surfaced via the API Evangelist harvest backlog (source: a2a-registry) and added to the network as a stub for full-pipeline profiling.
-- https://gitdealflow.com/
+GitDealFlow (published as **VC Deal Flow Signal**) is a deal-flow signal tool for angel, scout and seed investors that reads public GitHub engineering activity across 400+ venture-backed startups in 15 sectors and ranks the ones accelerating. The data is free under CC BY 4.0 through a no-auth REST API with an OpenAPI 3.1 contract, a hosted MCP server (plus an npm stdio package), an A2A agent with a published agent card, an NLWeb endpoint and bulk JSON/CSV/NDJSON exports; one paid deep-signal route is metered by credit-pack key or x402 USDC micropayments.
+
+- Website: https://gitdealflow.com/
+- Developers: https://signals.gitdealflow.com/developers
+- OpenAPI: https://signals.gitdealflow.com/api/openapi.json (saved to `openapi/`)
+- MCP: `npx -y @gitdealflow/mcp-signal` or POST https://signals.gitdealflow.com/api/mcp/rpc (see `mcp/`)
+- A2A agent card: https://signals.gitdealflow.com/.well-known/agent-card.json (see `a2a/`)
+- Agent reference: https://signals.gitdealflow.com/agents.md
+
+Profiled by the API Evangelist enrichment pipeline on 2026-09-19; every artifact in this repository carries `method:` and `source:` provenance.

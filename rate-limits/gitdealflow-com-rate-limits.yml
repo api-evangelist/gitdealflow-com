@@ -1,0 +1,65 @@
+generated: '2026-09-19'
+method: searched
+source: openapi info.x-rate-limit + per-operation x-rate-limit overrides (spec 1.4.0); https://signals.gitdealflow.com/developers;
+  https://signals.gitdealflow.com/agents/credits; response headers observed on GET /api/signals.json 2026-09-19
+limit_count: 3
+limits:
+- scope: per-ip
+  applies_to: all free read-only routes (default)
+  window: 1 minute
+  limit: 60
+  burst: 120
+  status_on_exhaustion: 429
+  headers:
+  - Retry-After (seconds)
+  note: Per-IP default for free, read-only routes. Static .json/.jsonl/.txt surfaces are edge-cached and effectively
+    unlimited. Operations that override the default carry their own `x-rate-limit` extension. Paid /api/agent/deep-signal*
+    routes are scoped to credit-pack key, not IP.
+- scope: per-ip
+  applies_to: /api/signal (getSingleSignal)
+  window: 1 minute
+  limit: 30
+  burst: 60
+  status_on_exhaustion: 429
+  headers:
+  - Retry-After
+  raw:
+    requestsPerMinute: 30
+    scope: ip
+    burst: 60
+    onExceeded:
+      status: 429
+      header: Retry-After
+- scope: per-ip
+  applies_to: /api/receipts/{username} (getScoutReceipts)
+  window: 1 minute
+  limit: 10
+  burst: 20
+  status_on_exhaustion: 429
+  headers:
+  - Retry-After
+  raw:
+    requestsPerMinute: 10
+    scope: ip
+    burst: 20
+    onExceeded:
+      status: 429
+      header: Retry-After
+    notes: Tighter than the default because the scoring step calls the GitHub API and is bursty by nature.
+- scope: per-key
+  applies_to: paid /api/agent/deep-signal* routes
+  window: null
+  limit: null
+  note: 'scoped to the credit-pack key, not IP; credits page: "Zero rate limits inside your quota"'
+response_headers:
+  on_429:
+  - Retry-After
+  on_200_observed: none — no RateLimit-*, X-RateLimit-* or remaining-quota headers on GET /api/signals.json; only
+    cache-control s-maxage=3600 and access-control-allow-origin *
+  paid_200:
+  - X-Credits-Balance (remaining credits, getDeepSignal)
+  - X-PAYMENT-RESPONSE (x402 settlement, getDeepSignalX402)
+discrepancy: The developers page states "There is no hard per-IP limit" for the cached public endpoints, while the
+  OpenAPI declares 60/min/IP (burst 120) with 30/min on /api/signal and 10/min on /api/receipts — the spec numbers
+  are recorded as the published limits; the cached bulk documents are effectively unlimited per both sources.
+documentation: https://signals.gitdealflow.com/api/v1/changelog.json

@@ -1,0 +1,16 @@
+# Security disclosure policy for VC Deal Flow Signal
+# https://signals.gitdealflow.com
+#
+# Report security issues by email. We aim to acknowledge within 72 hours.
+# Please do not file public GitHub issues for security findings.
+
+Contact: mailto:signals@gitdealflow.com
+Expires: 2027-09-19T23:24:28.349Z
+Preferred-Languages: en
+Canonical: https://signals.gitdealflow.com/.well-known/security.txt
+Policy: https://signals.gitdealflow.com/about
+
+# This service exposes a public, no-auth read-only API. There is no user
+# authentication, no session storage, and no sensitive PII. Findings of
+# interest are typically: SSRF in image proxies, prototype pollution in
+# our build pipeline, or social-engineering vectors via our public APIs.

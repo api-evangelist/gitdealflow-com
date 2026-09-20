@@ -1,0 +1,127 @@
+generated: '2026-09-19'
+method: derived
+source: openapi/gitdealflow-com-signals-openapi.yml 4xx/5xx responses, enriched with bodies observed on unauthenticated
+  probes of the paid routes (2026-09-19) and info.x-rate-limit
+format: plain-json
+envelope:
+  shape: '{ "error": "<snake_case code>", "message": "<human text>", ...context fields }'
+  content_type: application/json
+  rfc9457: false
+  note: No application/problem+json anywhere in the spec or observed. Successful lookups of an untracked entity
+    return 200 with found:false on some routes (getDeepSignal) and 404 on others (getDiligenceDossier, getDeepSignalX402).
+problem_types:
+- status: 400
+  code: http-400
+  title: Bad request — missing or invalid parameter
+  operations:
+  - getScoutReceipts
+  - getSingleSignal
+  spec_descriptions:
+  - Invalid GitHub username.
+  - Missing company parameter.
+  remediation: Check the required query/path parameter (company, username, q, slug). Do not retry unchanged.
+- status: 401
+  code: http-401
+  title: Missing or invalid API key
+  operations:
+  - getCredits
+  - getDeepSignal
+  - redeemDeepSignalSolana
+  spec_descriptions:
+  - Missing or invalid API key.
+  - Missing or invalid credit-pack key.
+  remediation: 'Send Authorization: Bearer gdf_v2.<customerId>.<hmac>; keys are emailed after Stripe checkout at
+    /agents/credits.'
+  observed_body:
+    error: missing_api_key
+    message: 'Send Authorization: Bearer gdf_v2.<customerId>.<hmac>. Buy 100 credits for €19 at https://signals.gitdealflow.com/agents/credits,
+      or pay per call in USDC on Base via https://signals.gitdealflow.com/api/agent/deep-signal/x402'
+    purchaseUrl: https://signals.gitdealflow.com/agents/credits
+    x402Url: https://signals.gitdealflow.com/api/agent/deep-signal/x402
+  observed_on: POST /api/agent/deep-signal without Authorization (2026-09-19)
+- status: 402
+  code: http-402
+  title: Payment required — insufficient credits or no x402 payment
+  operations:
+  - getDeepSignal
+  - getDeepSignalX402
+  - redeemDeepSignalSolana
+  spec_descriptions:
+  - Insufficient credits.
+  - Payment Required. Response body lists supported payment requirements (network, asset, payTo, price). Agent signs
+    an EIP-3009 authorization and retries with X-PAYMENT header.
+  - Payment not yet found/confirmed, or amount below the required price.
+  remediation: 'Credit rail: top up at https://signals.gitdealflow.com/agents/credits. x402 rail: sign the EIP-3009
+    authorization described in accepts[] and retry with X-PAYMENT.'
+  observed_body:
+    x402Version: 1
+    error: X-PAYMENT header is required
+    accepts:
+    - scheme: exact
+      network: base
+      maxAmountRequired: '190000'
+      asset: 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913 (USDC)
+      maxTimeoutSeconds: 30
+  observed_headers:
+  - 'PAYMENT-REQUIRED: <base64 JSON, x402Version 2>'
+  observed_on: POST /api/agent/deep-signal/x402 without X-PAYMENT (2026-09-19)
+- status: 404
+  code: http-404
+  title: Not found — startup/market/citation outside the tracked corpus (never charged)
+  operations:
+  - getCitation
+  - getDeepSignalX402
+  - getDiligenceDossier
+  - getMarket
+  spec_descriptions:
+  - Market not found, response includes the available list.
+  - Startup not in tracked universe, no settlement performed.
+  - Unknown format or slug.
+  - found:false, entity outside the tracked corpus (an expected outcome, not an error)
+  remediation: The entity is not in the panel; fall back to GET /api/signals.json and say so. No credit or payment
+    is consumed.
+- status: 409
+  code: http-409
+  title: Conflict — Solana payment already redeemed
+  operations:
+  - redeemDeepSignalSolana
+  spec_descriptions:
+  - Signature already redeemed.
+  remediation: Do not resubmit the same Solana transaction signature.
+- status: 422
+  code: http-422
+  title: Unprocessable — Solana payment could not be verified
+  operations:
+  - redeemDeepSignalSolana
+  spec_descriptions:
+  - Transaction failed on-chain or paid the wrong recipient.
+  remediation: Verify the transaction landed on Solana mainnet with the expected USDC amount before retrying.
+- status: 429
+  code: http-429
+  title: Rate limit exceeded
+  operations:
+  - getScoutReceipts
+  - getSingleSignal
+  spec_descriptions:
+  - Rate limited (10/min/IP). Retry after the `Retry-After` header.
+  - Rate limited (30/min/IP). Retry after the `Retry-After` header.
+  remediation: Honour Retry-After; free routes default to 60 req/min/IP (30 on /api/signal, 10 on /api/receipts).
+  observed_headers:
+  - Retry-After (seconds) per info.x-rate-limit.retryAfter
+  note: not triggered during probing; documented in info.x-rate-limit
+- status: 503
+  code: http-503
+  title: Payment rail not configured on the server
+  operations:
+  - getDeepSignalSolanaTerms
+  - getDeepSignalX402
+  - redeemDeepSignalSolana
+  spec_descriptions:
+  - Solana endpoint not configured (SOLANA_RPC_URL / SOLANA_USDC_MINT / SOLANA_PAY_TO env vars missing).
+  - Solana endpoint not configured.
+  - x402 endpoint not configured (X402_PAY_TO_ADDRESS env var missing).
+  remediation: Provider-side configuration; retry later or use the credit-pack rail.
+summary:
+  distinct_status_codes: 8
+  operations_declaring_errors: 10
+  operations_total: 37

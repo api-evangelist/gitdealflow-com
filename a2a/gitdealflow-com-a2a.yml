@@ -1,0 +1,55 @@
+generated: '2026-09-19'
+method: probed            # searched only — never generated or derived
+source: https://signals.gitdealflow.com/.well-known/agent-card.json
+discovery:
+  path: /.well-known/agent-card.json
+  canonical: true
+  host: signals.gitdealflow.com
+  legacy_path_also_served: true   # /.well-known/agent.json returns the byte-identical card (200)
+conformance:
+  spec: A2A 1.0.0
+  grade: conformant       # capabilities is an object, protocolVersion present, skills is an array
+  protocol_version: 0.3.0
+  preferred_transport: JSONRPC
+  default_input_modes: [text/plain, application/json]
+  default_output_modes: [text/plain, application/json]
+  deviations: []
+  extensions_observed:
+  - skills[].paid / pricePerCall / purchaseUrl / paymentMethods (vendor pricing extension on the paid deep-signal skill)
+  - top-level sameAs, license, attribution (schema.org-style identity fields)
+card:
+  name: GitDealFlow Signal Agent
+  url: https://signals.gitdealflow.com/api/a2a
+  version: 1.0.0
+  provider: GitDealFlow (https://gitdealflow.com)
+  documentation_url: https://signals.gitdealflow.com/developers
+  skills: 7
+  skill_ids: [get_trending_startups, search_startups_by_sector, get_startup_signal, get_signals_summary, get_methodology, get_scout_receipts, get_deep_signal]
+  paid_skills: [get_deep_signal]
+  file: gitdealflow-com-agent-card.json
+endpoint_probe:
+  url: https://signals.gitdealflow.com/api/a2a
+  get: 200 application/json descriptor listing methods [message/send, tasks/get, tasks/cancel]
+  post_tasks_get_unknown_id: JSON-RPC error -32001 "Task not found ... executes synchronously" (200) — a live JSON-RPC 2.0 A2A server
+  auth: none
+secondary_card:
+  note: >-
+    The apex domain serves a second, smaller card at https://gitdealflow.com/.well-known/agent-card.json
+    (name "GitDealFlow Agent", 2 skills: search_startups, get_deal_signal, url https://gitdealflow.com/api/a2a).
+    Also graded conformant (capabilities object, protocolVersion 0.3.0, skills array). Its endpoint answers
+    JSON-RPC POSTs with a non-standard result object rather than an A2A Task; the signals-host card is the
+    one the provider's OpenAPI x-a2a block, agents.md and api-catalog name as canonical.
+  source: https://gitdealflow.com/.well-known/agent-card.json
+  http_status: 200
+  file: gitdealflow-com-apex-agent-card.json
+  grade: conformant
+x-evidence:
+  fetched: '2026-09-19'
+  url: https://signals.gitdealflow.com/.well-known/agent-card.json
+  http_status: 200
+  content_type: application/json
+  also_probed:
+  - {url: https://signals.gitdealflow.com/.well-known/agent.json, http_status: 200, note: identical body}
+  - {url: https://gitdealflow.com/.well-known/agent-card.json, http_status: 200}
+  - {url: https://gitdealflow.com/.well-known/agent.json, http_status: 404}
+  - {url: https://www.gitdealflow.com/.well-known/agent-card.json, http_status: 308, note: redirects to apex}

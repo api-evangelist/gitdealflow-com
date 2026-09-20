@@ -1,0 +1,192 @@
+generated: '2026-09-19'
+method: derived
+source: Live tools/list from https://signals.gitdealflow.com/api/mcp/rpc (2026-09-19) bound to operationIds in openapi/gitdealflow-com-signals-openapi.yml
+  using the spec's own x-mcp-tool / x-mcp-server.httpAnalog declarations
+description: Binds each hosted MCP tool to the REST operation(s) that back it so the tool inherits a real request
+  contract. The provider publishes the mapping itself (x-mcp-tool per operation, x-mcp-server.tools[].httpAnalog),
+  which is why most rows are high confidence; three tools are server-side composites with no dedicated REST op.
+surfaces:
+  openapi:
+    file: openapi/gitdealflow-com-signals-openapi.yml
+    url: https://signals.gitdealflow.com/api/openapi.json
+    operations: 37
+    gated: false
+  mcp:
+    url: https://signals.gitdealflow.com/api/mcp/rpc
+    transport: streamable-http
+    protocol: '2025-06-18'
+    tools_list_gated: false
+    tools: 12
+    resources: 3
+    prompts: 7
+    manifest: mcp/gitdealflow-com-mcp.yml
+  graphql: null
+  a2a:
+    url: https://signals.gitdealflow.com/api/a2a
+    card: a2a/gitdealflow-com-a2a.yml
+    skills_mirror_tools: true
+  function_calling:
+    url: https://signals.gitdealflow.com/api/agent/tools
+    note: Same tool definitions in OpenAI/Anthropic/Gemini formats; invoke via POST /api/agent/call
+crosswalk:
+- tool: get_trending_startups
+  category: signals
+  rest:
+  - getSignals
+  binding: rest
+  confidence: high
+  note: Projection of /api/signals.json trending[] (x-mcp-server.httpAnalog); also the signal://trending resource
+  input_required: []
+- tool: search_startups_by_sector
+  category: signals
+  rest:
+  - getSignals
+  binding: rest
+  confidence: high
+  note: Projection of /api/signals.json sectors[?slug==sector] (x-mcp-server.httpAnalog)
+  input_required:
+  - sector
+- tool: get_startup_signal
+  category: signals
+  rest:
+  - getSingleSignal
+  binding: rest
+  confidence: high
+  note: 1:1 per x-mcp-tool relation exact; MCP arg name -> query param company
+  input_required:
+  - name
+- tool: get_signals_summary
+  category: meta
+  rest:
+  - getSignals
+  binding: rest
+  confidence: high
+  note: Projection of /api/signals.json meta + format URLs (x-mcp-tool relation superset)
+  input_required: []
+- tool: get_diligence_dossier
+  category: diligence
+  rest:
+  - getDiligenceDossier
+  binding: rest
+  confidence: high
+  note: x-mcp-tool on GET /api/diligence.json; MCP arg company -> query param company
+  input_required:
+  - company
+- tool: get_scout_receipts
+  category: scout
+  rest:
+  - getScoutReceipts
+  binding: rest
+  confidence: high
+  note: 1:1 per x-mcp-tool relation exact; github_username -> path param username
+  input_required:
+  - github_username
+- tool: get_methodology
+  category: methodology
+  rest:
+  - getMethodologyV1
+  binding: rest
+  confidence: high
+  note: 1:1 per x-mcp-tool relation exact on GET /api/v1/methodology.json
+  input_required: []
+- tool: get_deep_signal
+  category: deep-signal
+  rest:
+  - getDeepSignal
+  - getDeepSignalX402
+  binding: rest
+  confidence: high
+  note: Paid tool; x-mcp-tool on both rails (credit-pack bearer key, or x402 USDC). Server picks the rail from caller
+    context
+  input_required:
+  - name
+- tool: predict_funding
+  category: scout
+  rest:
+  - getScoutPrediction
+  binding: rest
+  confidence: low
+  note: Nearest public REST op is GET /api/scout/predict (experimental, keyed on username not startup name); the
+    spec declares no x-mcp-tool for it — likely a server-side composite over getSignals
+  input_required:
+  - name
+- tool: shortlist_signals
+  category: signals
+  rest:
+  - getSignals
+  binding: rest
+  confidence: medium
+  note: Server-side filter/rank over the signals panel (sector, geography, signalType, minAccelerationScore, minVelocityChangePct,
+    limit); no dedicated REST op
+  input_required: []
+- tool: compare_signals
+  category: signals
+  rest:
+  - getSingleSignal
+  - getSignals
+  binding: rest
+  confidence: medium
+  note: 'Fan-out: one getSingleSignal per name (2-5) scored side by side; no dedicated REST op'
+  input_required:
+  - names
+mcp_only:
+- tool: share_result
+  reason: Composes a shareable social post from a prior tool result (approval_token two-step); pure server-side
+    composer with no public REST operation
+rest_only:
+- category: signals
+  operations:
+  - getSignalsCSV (GET /api/signals.csv)
+  - getDatasetJsonl (GET /api/dataset.jsonl)
+- category: answer
+  operations:
+  - getAnswer (GET /api/answer)
+  - askQuestion (GET /api/ask)
+  - getAnswersCorpus (GET /api/answers.json)
+- category: search
+  operations:
+  - llmsSearch (GET /api/llms-search)
+- category: agents
+  operations:
+  - getAgentsCatalog (GET /api/agents.json)
+  - getAgentTools (GET /api/agent/tools)
+- category: meta
+  operations:
+  - getChangelog (GET /api/changelog.json)
+  - getPricing (GET /api/v1/pricing.json)
+- category: markets
+  operations:
+  - getMarket (GET /api/markets/{slug})
+- category: citation
+  operations:
+  - getCitation (GET /api/cite/{format}/{slug})
+- category: badges
+  operations:
+  - getScoutBadge (GET /api/badge/scout/{username}/svg)
+  - getBuiltWithBadge (GET /api/badge/built-with/svg)
+  - getMomentumBadge (GET /api/badge/momentum/{org}/{repo}/svg)
+- category: deep-signal
+  operations:
+  - getDeepSignalSolanaTerms (GET /api/agent/deep-signal/solana)
+  - redeemDeepSignalSolana (POST /api/agent/deep-signal/solana)
+  - getCredits (GET /api/account/credits)
+- category: v1
+  operations:
+  - getSignalsV1 (GET /api/v1/signals.json)
+  - getAgentsV1 (GET /api/v1/agents.json)
+  - getMembersV1 (GET /api/v1/members.json)
+  - getAffiliatesV1 (GET /api/v1/affiliates.json)
+  - getSocialMascotV1 (GET /api/v1/social-mascot.json)
+  - getAnswersV1 (GET /api/v1/answers.json)
+  - getChangelogV1 (GET /api/v1/changelog.json)
+  - getDatasetJsonlV1 (GET /api/v1/dataset.jsonl)
+  - getFaqV1 (GET /api/v1/faq.json)
+  - getGlossaryV1 (GET /api/v1/glossary.json)
+  - getOpenapiV1 (GET /api/v1/openapi.json)
+coverage:
+  tools_named: 12
+  tools_bound: 11
+  tools_high_confidence: 8
+  mcp_only: 1
+  rest_operations_total: 37
+  rest_operations_with_tool: 8

@@ -1,0 +1,35 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the VC Deal Flow Signal API
+  version: 1.0.0
+  x-generated: '2026-09-19'
+  x-method: generated
+extends: openapi/gitdealflow-com-signals-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: gitdealflow-com
+    x-apievangelist-profile: https://github.com/api-evangelist/gitdealflow-com
+    x-apievangelist-artifacts:
+      conventions: conventions/gitdealflow-com-conventions.yml
+      errors: errors/gitdealflow-com-problem-types.yml
+      rate_limits: rate-limits/gitdealflow-com-rate-limits.yml
+      tool_crosswalk: mcp/gitdealflow-com-tool-crosswalk.yml
+      agentic_access: agentic-access/gitdealflow-com-agentic-access.yml
+    x-apievangelist-note: >-
+      Provider spec is a unified OpenAPI 3.1 + MCP descriptor (x-mcp-server, x-mcp-tool, x-a2a,
+      x-rate-limit, x-changelog). info.version reads 1.4.0 while the embedded x-changelog tops out
+      at 1.3.0 (2026-05-08).
+- target: $.paths['/api/agent/deep-signal'].post
+  update:
+    x-apievangelist-cost: EUR 0.19 per successful match, misses free, credits never expire
+    x-apievangelist-reversibility: none documented for a consumed credit
+- target: $.paths['/api/agent/deep-signal/x402'].post
+  update:
+    x-apievangelist-payment-protocol: x402 (HTTP 402, EIP-3009 USDC on Base, PAYMENT-REQUIRED header observed 2026-09-19)
+- target: $.paths['/api/signal'].get
+  update:
+    x-apievangelist-rate-limit: 30 requests/min/IP (info.x-rate-limit override), 429 + Retry-After
+- target: $.paths['/api/receipts/{username}'].get
+  update:
+    x-apievangelist-rate-limit: 10 requests/min/IP (info.x-rate-limit override), 429 + Retry-After

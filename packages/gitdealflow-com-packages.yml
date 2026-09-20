@@ -1,0 +1,73 @@
+generated: '2026-09-19'
+method: searched
+source: registry.npmjs.org (package metadata endpoints), npm search "gitdealflow", pypi.org/pypi/<name>/json (404 for gitdealflow, gitdealflow-signal-engine, vc-deal-flow-signal), api.github.com/users/kindrat86/repos, https://signals.gitdealflow.com/developers
+note: >-
+  The provider ships no language SDK in the classic sense; its first-party client libraries are an
+  MCP server package (which is also the agent-facing client for the REST API), an n8n community node,
+  an MIT Python reference implementation of the signal computation (GitHub only, not on PyPI) and two
+  Chrome extensions. The Pipedream component is maintained by Pipedream, not the provider.
+packages:
+- language: typescript
+  registry: npm
+  name: "@gitdealflow/mcp-signal"
+  url: https://www.npmjs.com/package/@gitdealflow/mcp-signal
+  install: npx -y @gitdealflow/mcp-signal
+  official: true
+  version: 2.2.2
+  published: '2026-08-16'
+  first_published: '2026-04-16'
+  bin: gitdealflow-mcp
+  license: MIT
+  repository: https://github.com/kindrat86/vc-deal-flow-signal (mcp-server/)
+  maintainer: the_data_nerd <signal@gitdealflow.com>
+  kind: mcp-server + api client
+- language: javascript
+  registry: npm
+  name: n8n-nodes-gitdealflow
+  url: https://www.npmjs.com/package/n8n-nodes-gitdealflow
+  install: npm install n8n-nodes-gitdealflow
+  official: true
+  version: 0.1.0
+  published: '2026-05-03'
+  repository: https://github.com/kindrat86/vc-deal-flow-signal (n8n-integration/)
+  maintainer: the_data_nerd <signal@gitdealflow.com>
+  kind: n8n community node
+- language: javascript
+  registry: npm
+  name: "@pipedream/vc_deal_flow_signal"
+  url: https://www.npmjs.com/package/@pipedream/vc_deal_flow_signal
+  install: npm install @pipedream/vc_deal_flow_signal
+  official: false
+  version: 0.1.1
+  published: '2026-09-08'
+  maintainer: Pipedream (casret, dylburger-workday)
+  kind: Pipedream integration component (third-party)
+- language: python
+  registry: github
+  name: gitdealflow-signal-engine
+  url: https://github.com/kindrat86/gitdealflow-signal-engine
+  install: git clone https://github.com/kindrat86/gitdealflow-signal-engine
+  official: true
+  version: null
+  published: null
+  note: MIT reference implementation of the commit-velocity acceleration signal; no PyPI release (pypi.org/pypi/gitdealflow-signal-engine 404). Last push 2026-08-20 per api.github.com.
+  license: MIT
+  kind: reference implementation (not an API client)
+- language: javascript
+  registry: chrome-web-store
+  name: VC Deal Flow Signal — Crunchbase + Wellfound badge
+  url: https://chromewebstore.google.com/detail/hehkgipiamajnnlpkfhpeoeaoaogmknn
+  official: true
+  version: null
+  published: null
+  note: Manifest V3 extension calling signals.gitdealflow.com; the Web Store has no anonymous metadata endpoint, so version/date were not read. Landing page https://gitdealflow.com/chrome (200).
+  kind: browser extension
+- language: javascript
+  registry: chrome-web-store
+  name: VC GitHub Lookup — Startup Signals on Hover
+  url: https://chromewebstore.google.com/detail/vc-github-lookup-%E2%80%94-startu/plgngijmloeljfkenecdkhiblcfcbblm
+  official: true
+  version: null
+  published: null
+  note: Second extension per the MCP server README (May 2026); not queried.
+  kind: browser extension

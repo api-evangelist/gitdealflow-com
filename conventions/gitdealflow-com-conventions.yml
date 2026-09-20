@@ -1,0 +1,90 @@
+generated: '2026-09-19'
+method: searched
+source: >-
+  https://signals.gitdealflow.com/developers, https://signals.gitdealflow.com/agents.md,
+  https://signals.gitdealflow.com/agents/credits, openapi/gitdealflow-com-signals-openapi.yml
+  (info.x-rate-limit, securitySchemes, x-mcp-tool annotations), live responses observed 2026-09-19
+description: >-
+  Cross-cutting runtime semantics of the VC Deal Flow Signal API: a free, no-auth, read-only,
+  edge-cached REST surface with one metered POST route sold by credit pack or x402 micropayment.
+base_url: https://signals.gitdealflow.com
+api_style: REST over HTTPS, JSON responses (plus CSV, NDJSON, SVG, text/plain citation exports); CORS Access-Control-Allow-Origin * observed
+authentication:
+  scheme: none on free routes; HTTP Bearer credit-pack key (gdf_v2.<customerId>.<hmac>) on POST /api/agent/deep-signal, POST /api/agent/deep-signal/solana and GET /api/account/credits; x402 X-PAYMENT header on POST /api/agent/deep-signal/x402; optional OAuth 2.0 client_credentials token (scope mcp:read) for the MCP server
+  key_types: [gdf_v2 credit-pack bearer (emailed after Stripe checkout), anonymous mcp:read JWT (TTL 3600s, auth method none)]
+  detail: authentication/gitdealflow-com-authentication.yml
+  docs: https://signals.gitdealflow.com/agents/credits
+idempotency:
+  supported: false
+  coverage: none
+  mechanism: null
+  applies_to: >-
+    No Idempotency-Key header or replay token is documented anywhere. The mutating surface is small:
+    POST /api/agent/deep-signal (consumes 1 credit per found:true), POST /api/agent/deep-signal/x402
+    (settles 0.19 USDC per hit) and POST /api/agent/deep-signal/solana (redeems a transfer; 409 on a
+    repeated signature is the only replay guard). The MCP annotations declare idempotentHint true on
+    get_deep_signal, but a retried successful call is charged again — agents must not retry a 200.
+  scope: []
+  docs: https://signals.gitdealflow.com/agents/credits
+reversibility:
+  status: none
+  write_surfaces:
+  - operation: getDeepSignal
+    effect: consumes 1 prepaid credit when found is true (misses free)
+    reversal: none documented; refund requests for purchases are reviewed manually by email (terms §4)
+    window: null
+  - operation: getDeepSignalX402
+    effect: on-chain USDC settlement of 0.19 per hit via the Coinbase x402 facilitator
+    reversal: none (on-chain transfer); 404 misses are not settled
+    window: null
+  - operation: redeemDeepSignalSolana
+    effect: converts a Solana USDC transfer into credits
+    reversal: none documented
+    window: null
+  subscriptions_note: >-
+    The 30-day "Signal-or-It's-Free" guarantee (pricing.json guarantee.window "30 days"; support page
+    "full refund within 30 days of purchase under the Terms") applies to Dashboard, Insider, Sharp Tier
+    and Sector Sweep plan purchases — a commercial refund on a Stripe subscription, not a reversal of
+    an API operation, so it is not counted as an API reversibility window.
+  read_surface: 34 of 37 operations are GET reads with no side effects (reversibility not applicable)
+dry_run_mode:
+  supported: false
+  note: no sandbox or test key; misses on the paid routes are free, which is the closest thing to a rehearsal
+pagination:
+  style: none
+  detail: >-
+    Bulk surfaces return the whole current-period panel (/api/signals.json ~190 KB, /api/dataset.jsonl
+    NDJSON, /api/signals.csv). Ranked search routes take a limit query param (/api/ask, /api/llms-search).
+    No cursor or offset parameters, no has_more/next fields.
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+request_tracing:
+  request_id_header: none observed (x-vercel-id is the platform's edge trace, not documented)
+versioning:
+  style: URL path aliases (/api/v1/<resource>) over unversioned canonical routes; spec semver 1.4.0
+  detail: lifecycle/gitdealflow-com-lifecycle.yml
+error_envelope:
+  shape: '{ "error": "<snake_case code>", "message": "<text>", ...context }'
+  content_type: application/json
+  rfc9457: false
+  detail: errors/gitdealflow-com-problem-types.yml
+rate_limiting:
+  default: 60 requests/min per IP, burst 120 (info.x-rate-limit)
+  overrides: {/api/signal: 30/min/IP, '/api/receipts/{username}': 10/min/IP}
+  exhaustion: 429 with Retry-After (seconds)
+  headers_observed: none on 200 responses (no RateLimit-* / X-RateLimit-*)
+  paid_routes: scoped to the credit-pack key, "zero rate limits inside your quota" (credits page)
+  detail: rate-limits/gitdealflow-com-rate-limits.yml
+caching:
+  detail: 'free JSON routes send cache-control: public, max-age=0, s-maxage=3600, stale-while-revalidate=600 (observed on /api/signals.json); developers page says static surfaces are edge-cached and effectively unlimited'
+data_freshness:
+  cadence: weekly (Mondays); every response carries period + citation fields
+licensing:
+  data: CC BY 4.0 with attribution "VC Deal Flow Signal (signals.gitdealflow.com)"; note /api/signals.json meta.license adds "Commercial redistribution prohibited", stricter than the spec's CC BY 4.0
+agent_surfaces:
+  mcp: mcp/gitdealflow-com-mcp.yml
+  crosswalk: mcp/gitdealflow-com-tool-crosswalk.yml
+  a2a: a2a/gitdealflow-com-a2a.yml
+  agentic_access: agentic-access/gitdealflow-com-agentic-access.yml

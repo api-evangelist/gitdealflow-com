@@ -1,23 +1,224 @@
 aid: gitdealflow-com
 name: GitDealFlow
-description: 'GitDealFlow is a company surfaced via the API Evangelist harvest backlog (source: a2a-registry)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  GitDealFlow (also published as VC Deal Flow Signal) is a deal-flow signal tool for angel, scout
+  and seed investors that reads public GitHub engineering activity across 400+ venture-backed
+  startup organizations in 15 sectors and ranks the ones accelerating, historically 3-6 weeks
+  before a fundraise announcement. The data is published free under CC BY 4.0 through a no-auth
+  REST API described by an OpenAPI 3.1 document, a hosted MCP server (Streamable HTTP plus an npm
+  stdio package), an A2A JSON-RPC agent with a published agent card, an NLWeb endpoint, JSON/CSV/
+  NDJSON bulk exports and an RSS feed, with one paid deep-signal endpoint metered by credit-pack
+  key or x402 USDC micropayments. Operated pseudonymously from Cyprus by "The Data Nerd";
+  methodology published on SSRN.
+image: https://signals.gitdealflow.com/icon.png
 url: https://raw.githubusercontent.com/api-evangelist/gitdealflow-com/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:a2a-registry
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-09-19 found a live OpenAPI, MCP server, A2A agent card and well-known surface
 specificationVersion: '0.20'
 created: '2026-09-19'
 modified: '2026-09-19'
 tags:
-- Company
-apis: []
+- Venture Capital
+- Deal Flow
+- Startups
+- GitHub
+- Alternative Data
+- Investing
+- Research Data
+- MCP
+- Agents
+- Developer Tools
+apis:
+- name: VC Deal Flow Signal API
+  description: >-
+    Free, no-auth REST API over the weekly startup engineering-acceleration panel: bulk signals
+    (JSON/CSV/NDJSON), single-startup lookups, sector rankings, citation-ready Q&A retrieval,
+    site search, Scout Score receipts, prediction markets, SVG badges, machine-readable pricing,
+    changelog, methodology and glossary, plus versioned /api/v1 aliases. One paid deep-signal
+    endpoint is metered per call by credit-pack bearer key or x402 USDC on Base.
+  humanURL: https://signals.gitdealflow.com/developers
+  image: https://signals.gitdealflow.com/icon.png
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - Signals
+  - Startups
+  - Deal Flow
+  - Badges
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-signals-openapi.yml
+  - type: OpenAPI
+    name: Provider-hosted OpenAPI 3.1 (live)
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: Overlay
+    url: overlays/gitdealflow-com-signals-overlay.yaml
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
+- name: VC Deal Flow Signal MCP Server
+  description: >-
+    Hosted Model Context Protocol server (protocol 2025-06-18, Streamable HTTP) exposing 12
+    read-only tools, 3 resources and 7 prompts over the same signal panel; also shipped as the
+    npm stdio package @gitdealflow/mcp-signal. Free tools need no auth; an optional anonymous
+    client_credentials token (scope mcp:read) is issued by the provider's own OAuth token endpoint,
+    and the single paid tool takes a credit-pack bearer key.
+  humanURL: https://signals.gitdealflow.com/agents
+  image: https://signals.gitdealflow.com/icon.png
+  baseURL: https://signals.gitdealflow.com/api/mcp/rpc
+  tags:
+  - MCP
+  - Agents
+  - Signals
+  properties:
+  - type: MCPServer
+    url: mcp/gitdealflow-com-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/gitdealflow-com-tool-crosswalk.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/agents.md
+  - type: SourceCode
+    url: https://github.com/kindrat86/mcp-deal-flow-signal
+- name: GitDealFlow A2A Agent
+  description: >-
+    Agent-to-Agent (A2A 0.3.0) JSON-RPC 2.0 endpoint implementing message/send, tasks/get and
+    tasks/cancel over the signal panel, executing synchronously; discovered via the agent card
+    served at /.well-known/agent-card.json on both gitdealflow.com and signals.gitdealflow.com.
+  humanURL: https://signals.gitdealflow.com/agents
+  image: https://signals.gitdealflow.com/icon.png
+  baseURL: https://signals.gitdealflow.com/api/a2a
+  tags:
+  - A2A
+  - Agents
+  properties:
+  - type: AgentCard
+    url: a2a/gitdealflow-com-a2a.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/agents.md
+- name: GitDealFlow NLWeb Endpoint
+  description: >-
+    Microsoft NLWeb-compatible conversational endpoint: POST a natural-language query and receive
+    schema.org-typed JSON-LD (ItemList, Organization, Article, Dataset or WebPage). GET returns the
+    request-schema descriptor with example queries.
+  humanURL: https://signals.gitdealflow.com/agents.md
+  image: https://signals.gitdealflow.com/icon.png
+  baseURL: https://signals.gitdealflow.com/api/nlweb
+  tags:
+  - NLWeb
+  - Agents
+  - Search
+  properties:
+  - type: Documentation
+    url: https://signals.gitdealflow.com/agents.md
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: VulnerabilityDisclosure
+  url: security/gitdealflow-com-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/gitdealflow-com-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/gitdealflow-com-agentic-access.yml
+- type: Authentication
+  url: authentication/gitdealflow-com-authentication.yml
 - type: Website
   url: https://gitdealflow.com/
+- type: DeveloperPortal
+  url: https://signals.gitdealflow.com/developers
+- type: Documentation
+  url: https://signals.gitdealflow.com/developers
+- type: APIReference
+  url: https://signals.gitdealflow.com/api/openapi.json
+- type: GettingStarted
+  url: https://signals.gitdealflow.com/agents.md
+- type: Support
+  url: https://signals.gitdealflow.com/support
+- type: Blog
+  url: https://signals.gitdealflow.com/blog
+- type: BlogRSS
+  url: https://signals.gitdealflow.com/feed.xml
+- type: GitHubOrganization
+  url: https://github.com/kindrat86
+- type: Pricing
+  url: https://signals.gitdealflow.com/pricing
+- type: Login
+  url: https://signals.gitdealflow.com/login
+- type: TermsOfService
+  url: https://gitdealflow.com/terms
+- type: PrivacyPolicy
+  url: https://gitdealflow.com/privacy
+- type: Postman
+  url: https://signals.gitdealflow.com/agents/postman-collection.json
+- type: StatusPage
+  url: https://signals.gitdealflow.com/uptime
+- type: ChangeLog
+  url: changelog/gitdealflow-com-changelog.yml
+- type: Lifecycle
+  url: lifecycle/gitdealflow-com-lifecycle.yml
+- type: Packages
+  url: packages/gitdealflow-com-packages.yml
+- type: SDKs
+  url: packages/gitdealflow-com-packages.yml
+- type: WellKnown
+  url: well-known/gitdealflow-com-well-known.yml
+- type: SecurityTxt
+  url: well-known/gitdealflow-com-security.txt
+- type: AgentCard
+  url: a2a/gitdealflow-com-a2a.yml
+- type: LLMsTxt
+  url: llms/gitdealflow-com-llms.txt
+- type: Conformance
+  url: conformance/gitdealflow-com-conformance.yml
+- type: Conventions
+  url: conventions/gitdealflow-com-conventions.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Components
+  url: components/gitdealflow-com-components.yml
+- type: Plans
+  url: plans/gitdealflow-com-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/gitdealflow-com-rate-limits.yml
+- type: RegulatoryPosture
+  url: regulatory/gitdealflow-com-regulatory-posture.yml
+- type: Subprocessors
+  url: well-known/gitdealflow-com-compliance.json
+- type: DataResidency
+  url: well-known/gitdealflow-com-compliance.json
+- type: IncidentNotification
+  url: well-known/gitdealflow-com-compliance.json
+- type: AITransparency
+  url: well-known/gitdealflow-com-ai-policy.json
+- type: DataSubjectRequest
+  url: https://gitdealflow.com/privacy
+- type: Security
+  url: security/gitdealflow-com-vulnerability-disclosure.yml
+- type: OAuthScopes
+  url: scopes/gitdealflow-com-scopes.yml
+- type: ExitAssistance
+  url: well-known/gitdealflow-com-compliance.json
+x-enrichment:
+  date: '2026-09-19'
+  status: enriched
+  artifacts_added: 47
+  pass: local-v3
