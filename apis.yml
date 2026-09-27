@@ -10,6 +10,22 @@ description: >-
   NDJSON bulk exports and an RSS feed, with one paid deep-signal endpoint metered by credit-pack
   key or x402 USDC micropayments. Operated pseudonymously from Cyprus by "The Data Nerd";
   methodology published on SSRN.
+deliveryModel:
+  model: saas
+  license_evidence:
+    not_product:
+    - kindrat86/mcp-deal-flow-signal
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-not-product
+  generated: '2026-09-25'
+  method: derived
 image: https://signals.gitdealflow.com/icon.png
 url: https://raw.githubusercontent.com/api-evangelist/gitdealflow-com/refs/heads/main/apis.yml
 x-type: company
@@ -26,60 +42,18 @@ tags:
 - GitHub
 - Alternative Data
 - Investing
-- Research Data
 - MCP
 - Agents
 - Developer Tools
+- A2A
 apis:
-- name: VC Deal Flow Signal API
-  description: >-
-    Free, no-auth REST API over the weekly startup engineering-acceleration panel: bulk signals
-    (JSON/CSV/NDJSON), single-startup lookups, sector rankings, citation-ready Q&A retrieval,
-    site search, Scout Score receipts, prediction markets, SVG badges, machine-readable pricing,
-    changelog, methodology and glossary, plus versioned /api/v1 aliases. One paid deep-signal
-    endpoint is metered per call by credit-pack bearer key or x402 USDC on Base.
-  humanURL: https://signals.gitdealflow.com/developers
-  image: https://signals.gitdealflow.com/icon.png
-  baseURL: https://signals.gitdealflow.com
-  tags:
-  - Signals
-  - Startups
-  - Deal Flow
-  - Badges
-  - Search
-  properties:
-  - type: OpenAPI
-    url: openapi/gitdealflow-com-signals-openapi.yml
-  - type: OpenAPI
-    name: Provider-hosted OpenAPI 3.1 (live)
-    url: https://signals.gitdealflow.com/api/openapi.json
-  - type: Documentation
-    url: https://signals.gitdealflow.com/developers
-  - type: APIReference
-    url: https://signals.gitdealflow.com/api/openapi.json
-  - type: Postman
-    url: https://signals.gitdealflow.com/agents/postman-collection.json
-  - type: Overlay
-    url: overlays/gitdealflow-com-signals-overlay.yaml
-  - type: ErrorCatalog
-    url: errors/gitdealflow-com-problem-types.yml
-  - type: DataModel
-    url: data-model/gitdealflow-com-data-model.yml
-  - type: RateLimits
-    url: rate-limits/gitdealflow-com-rate-limits.yml
-  - type: Plans
-    url: plans/gitdealflow-com-plans-pricing.yml
-  - type: ChangeLog
-    url: https://signals.gitdealflow.com/api/changelog.json
-  - type: BlogRSS
-    url: https://signals.gitdealflow.com/feed.xml
 - name: VC Deal Flow Signal MCP Server
   description: >-
-    Hosted Model Context Protocol server (protocol 2025-06-18, Streamable HTTP) exposing 12
-    read-only tools, 3 resources and 7 prompts over the same signal panel; also shipped as the
-    npm stdio package @gitdealflow/mcp-signal. Free tools need no auth; an optional anonymous
-    client_credentials token (scope mcp:read) is issued by the provider's own OAuth token endpoint,
-    and the single paid tool takes a credit-pack bearer key.
+    Hosted Model Context Protocol server (protocol 2025-06-18, Streamable HTTP) exposing 12 read-only
+    tools, 3 resources and 7 prompts over the same signal panel; also shipped as the npm stdio package
+    @gitdealflow/mcp-signal. Free tools need no auth; an optional anonymous client_credentials token (scope
+    mcp:read) is issued by the provider's own OAuth token endpoint, and the single paid tool takes a credit-pack
+    bearer key.
   humanURL: https://signals.gitdealflow.com/agents
   image: https://signals.gitdealflow.com/icon.png
   baseURL: https://signals.gitdealflow.com/api/mcp/rpc
@@ -98,9 +72,9 @@ apis:
     url: https://github.com/kindrat86/mcp-deal-flow-signal
 - name: GitDealFlow A2A Agent
   description: >-
-    Agent-to-Agent (A2A 0.3.0) JSON-RPC 2.0 endpoint implementing message/send, tasks/get and
-    tasks/cancel over the signal panel, executing synchronously; discovered via the agent card
-    served at /.well-known/agent-card.json on both gitdealflow.com and signals.gitdealflow.com.
+    Agent-to-Agent (A2A 0.3.0) JSON-RPC 2.0 endpoint implementing message/send, tasks/get and tasks/cancel
+    over the signal panel, executing synchronously; discovered via the agent card served at /.well-known/agent-card.json
+    on both gitdealflow.com and signals.gitdealflow.com.
   humanURL: https://signals.gitdealflow.com/agents
   image: https://signals.gitdealflow.com/icon.png
   baseURL: https://signals.gitdealflow.com/api/a2a
@@ -114,9 +88,9 @@ apis:
     url: https://signals.gitdealflow.com/agents.md
 - name: GitDealFlow NLWeb Endpoint
   description: >-
-    Microsoft NLWeb-compatible conversational endpoint: POST a natural-language query and receive
-    schema.org-typed JSON-LD (ItemList, Organization, Article, Dataset or WebPage). GET returns the
-    request-schema descriptor with example queries.
+    Microsoft NLWeb-compatible conversational endpoint: POST a natural-language query and receive schema.org-typed
+    JSON-LD (ItemList, Organization, Article, Dataset or WebPage). GET returns the request-schema descriptor
+    with example queries.
   humanURL: https://signals.gitdealflow.com/agents.md
   image: https://signals.gitdealflow.com/icon.png
   baseURL: https://signals.gitdealflow.com/api/nlweb
@@ -127,12 +101,434 @@ apis:
   properties:
   - type: Documentation
     url: https://signals.gitdealflow.com/agents.md
+- aid: gitdealflow-com:gitdealflow-com-agents-api
+  name: GitDealFlow Agents API
+  description: Agent / MCP discovery surfaces
+  humanURL: https://signals.gitdealflow.com/developers
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - agents
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-agents-api-openapi.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
+- aid: gitdealflow-com:gitdealflow-com-answer-api
+  name: GitDealFlow Answer API
+  description: Citation-ready Q&A retrieval
+  humanURL: https://signals.gitdealflow.com/developers
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - answer
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-answer-api-openapi.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
+- aid: gitdealflow-com:gitdealflow-com-badges-api
+  name: GitDealFlow Badges API
+  description: SVG badges for embeds
+  humanURL: https://signals.gitdealflow.com/developers
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - badges
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-badges-api-openapi.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
+- aid: gitdealflow-com:gitdealflow-com-brand-api
+  name: GitDealFlow Brand API
+  description: The brand API from GitDealFlow — 1 operation(s) for brand.
+  humanURL: https://signals.gitdealflow.com/developers
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - brand
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-brand-api-openapi.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
+- aid: gitdealflow-com:gitdealflow-com-business-model-api
+  name: GitDealFlow Business Model API
+  description: The business-model API from GitDealFlow — 1 operation(s) for business-model.
+  humanURL: https://signals.gitdealflow.com/developers
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - business-model
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-business-model-api-openapi.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
+- aid: gitdealflow-com:gitdealflow-com-citation-api
+  name: GitDealFlow Citation API
+  description: Reference-manager exports
+  humanURL: https://signals.gitdealflow.com/developers
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - citation
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-citation-api-openapi.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
+- aid: gitdealflow-com:gitdealflow-com-community-api
+  name: GitDealFlow Community API
+  description: The community API from GitDealFlow — 1 operation(s) for community.
+  humanURL: https://signals.gitdealflow.com/developers
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - community
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-community-api-openapi.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
+- aid: gitdealflow-com:gitdealflow-com-deep-signal-api
+  name: GitDealFlow Deep Signal API
+  description: Paid per-request enriched signals
+  humanURL: https://signals.gitdealflow.com/developers
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - deep-signal
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-deep-signal-api-openapi.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
+- aid: gitdealflow-com:gitdealflow-com-glossary-api
+  name: GitDealFlow Glossary API
+  description: Controlled-vocabulary term definitions
+  humanURL: https://signals.gitdealflow.com/developers
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - glossary
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-glossary-api-openapi.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
+- aid: gitdealflow-com:gitdealflow-com-markets-api
+  name: GitDealFlow Markets API
+  description: Open prediction markets
+  humanURL: https://signals.gitdealflow.com/developers
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - markets
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-markets-api-openapi.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
+- aid: gitdealflow-com:gitdealflow-com-meta-api
+  name: GitDealFlow Meta API
+  description: Pricing, changelog, dataset
+  humanURL: https://signals.gitdealflow.com/developers
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - meta
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-meta-api-openapi.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
+- aid: gitdealflow-com:gitdealflow-com-methodology-api
+  name: GitDealFlow Methodology API
+  description: Reproducible signal-computation methodology
+  humanURL: https://signals.gitdealflow.com/developers
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - methodology
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-methodology-api-openapi.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
+- aid: gitdealflow-com:gitdealflow-com-scout-api
+  name: GitDealFlow Scout API
+  description: Scout score receipts and prediction
+  humanURL: https://signals.gitdealflow.com/developers
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - scout
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-scout-api-openapi.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
+- aid: gitdealflow-com:gitdealflow-com-search-api
+  name: GitDealFlow Search API
+  description: On-site search across all content
+  humanURL: https://signals.gitdealflow.com/developers
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - search
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-search-api-openapi.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
+- aid: gitdealflow-com:gitdealflow-com-signals-api
+  name: GitDealFlow Signals API
+  description: Startup engineering acceleration data
+  humanURL: https://signals.gitdealflow.com/developers
+  baseURL: https://signals.gitdealflow.com
+  tags:
+  - signals
+  properties:
+  - type: OpenAPI
+    url: openapi/gitdealflow-com-signals-api-openapi.yml
+  - type: Documentation
+    url: https://signals.gitdealflow.com/developers
+  - type: APIReference
+    url: https://signals.gitdealflow.com/api/openapi.json
+  - type: Postman
+    url: https://signals.gitdealflow.com/agents/postman-collection.json
+  - type: ErrorCatalog
+    url: errors/gitdealflow-com-problem-types.yml
+  - type: DataModel
+    url: data-model/gitdealflow-com-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gitdealflow-com-rate-limits.yml
+  - type: Plans
+    url: plans/gitdealflow-com-plans-pricing.yml
+  - type: ChangeLog
+    url: https://signals.gitdealflow.com/api/changelog.json
+  - type: BlogRSS
+    url: https://signals.gitdealflow.com/feed.xml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/gitdealflow-com-signals-overlay.yaml
 - type: VulnerabilityDisclosure
   url: security/gitdealflow-com-vulnerability-disclosure.yml
 - type: DomainSecurity
@@ -222,3 +618,10 @@ x-enrichment:
   status: enriched
   artifacts_added: 47
   pass: local-v3
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://signals.gitdealflow.com/.well-known/agent-card.json"
+  grade: "conformant"
+  protocol_version: "0.3.0"
+  control: 404

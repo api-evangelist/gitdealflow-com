@@ -1,0 +1,57 @@
+{
+  "provider": "gitdealflow-com",
+  "sources": [
+    "_original/gitdealflow-com-signals-openapi.json",
+    "gitdealflow-com-signals-openapi.yml"
+  ],
+  "outputs": [
+    "gitdealflow-com-agents-api-openapi.yml",
+    "gitdealflow-com-answer-api-openapi.yml",
+    "gitdealflow-com-badges-api-openapi.yml",
+    "gitdealflow-com-brand-api-openapi.yml",
+    "gitdealflow-com-business-model-api-openapi.yml",
+    "gitdealflow-com-citation-api-openapi.yml",
+    "gitdealflow-com-community-api-openapi.yml",
+    "gitdealflow-com-deep-signal-api-openapi.yml",
+    "gitdealflow-com-glossary-api-openapi.yml",
+    "gitdealflow-com-markets-api-openapi.yml",
+    "gitdealflow-com-meta-api-openapi.yml",
+    "gitdealflow-com-methodology-api-openapi.yml",
+    "gitdealflow-com-scout-api-openapi.yml",
+    "gitdealflow-com-search-api-openapi.yml",
+    "gitdealflow-com-signals-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/gitdealflow-com-signals-openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "gitdealflow-com-signals-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "gitdealflow-com-signals-openapi.json: declared missing tag: brand",
+    "gitdealflow-com-signals-openapi.json: declared missing tag: business-model",
+    "gitdealflow-com-signals-openapi.json: declared missing tag: community",
+    "gitdealflow-com-signals-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "gitdealflow-com-signals-openapi.yml: declared missing tag: brand",
+    "gitdealflow-com-signals-openapi.yml: declared missing tag: business-model",
+    "gitdealflow-com-signals-openapi.yml: declared missing tag: community",
+    "tag 'agents' spans 2 source specs (gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml): per-path servers applied",
+    "tag 'answer' spans 2 source specs (gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml): per-path servers applied",
+    "tag 'badges' spans 2 source specs (gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml): per-path servers applied",
+    "tag 'brand' spans 2 source specs (gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml): per-path servers applied",
+    "tag 'business-model' spans 2 source specs (gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml): per-path servers applied",
+    "tag 'citation' spans 2 source specs (gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml): per-path servers applied",
+    "tag 'community' spans 2 source specs (gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml): per-path servers applied",
+    "tag 'deep-signal' spans 2 source specs (gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml): per-path servers applied",
+    "tag 'glossary' spans 2 source specs (gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml): per-path servers applied",
+    "tag 'markets' spans 2 source specs (gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml): per-path servers applied",
+    "tag 'meta' spans 2 source specs (gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml): per-path servers applied",
+    "tag 'methodology' spans 2 source specs (gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml): per-path servers applied",
+    "tag 'scout' spans 2 source specs (gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml): per-path servers applied",
+    "tag 'search' spans 2 source specs (gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml): per-path servers applied",
+    "tag 'signals' spans 2 source specs (gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml): per-path servers applied",
+    "apis.yml register: written (+15 apis, 18 total)"
+  ],
+  "skipped": []
+}
