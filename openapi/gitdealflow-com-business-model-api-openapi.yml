@@ -1,14 +1,17 @@
 openapi: 3.2.0
 info:
-  title: Gitdealflow Com Business Model API
+  title: VC Deal Flow Signal Business Model API
   version: 1.4.0
+  description: Unified OpenAPI 3.1 + MCP descriptor for startup engineering-acceleration data.
   contact:
     email: signals@gitdealflow.com
   license:
     name: Free with attribution (CC BY 4.0)
     url: https://creativecommons.org/licenses/by/4.0/
   x-citation: 'VC Deal Flow Signal (signals.gitdealflow.com), Q3 2026 data. SSRN: 6606558.'
+  x-revision-date: '2026-05-08'
   x-mcp-tool-count: 8
+  x-rest-operation-count: 25
   x-rate-limit:
     default:
       requestsPerMinute: 60
@@ -23,9 +26,6 @@ info:
       header: Retry-After
       unit: seconds
     documentation: https://signals.gitdealflow.com/api/v1/changelog.json
-  x-rest-operation-count: 25
-  x-revision-date: '2026-05-08'
-  description: 'Operations tagged business-model across 2 of this provider''s published API definitions: gitdealflow-com-signals-openapi.json, gitdealflow-com-signals-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://signals.gitdealflow.com
 tags:
@@ -91,8 +91,6 @@ paths:
                     additionalProperties: true
                   license:
                     type: string
-    servers:
-    - url: https://signals.gitdealflow.com
 components:
   securitySchemes:
     creditPackKey:
@@ -100,9 +98,6 @@ components:
       scheme: bearer
       bearerFormat: gdf_v2.<customerId>.<hmac>
       description: 'Per-request credit-pack API key delivered by email after Stripe checkout. Format: `gdf_v2.<stripe_customer_id>.<hmac16>`. Buy at https://signals.gitdealflow.com/agents/credits.'
-x-refined-from:
-- gitdealflow-com-signals-openapi.json
-- gitdealflow-com-signals-openapi.yml
 x-mcp:
   rpcEndpoint: https://signals.gitdealflow.com/api/mcp/rpc
   manifestUrl: https://signals.gitdealflow.com/.well-known/mcp.json
