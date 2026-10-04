@@ -107,6 +107,8 @@ apis:
   humanURL: https://signals.gitdealflow.com/developers
   baseURL: https://signals.gitdealflow.com
   tags:
+  - Agents
+  tags_raw:
   - agents
   properties:
   - type: OpenAPI
@@ -135,6 +137,8 @@ apis:
   humanURL: https://signals.gitdealflow.com/developers
   baseURL: https://signals.gitdealflow.com
   tags:
+  - Answers
+  tags_raw:
   - answer
   properties:
   - type: OpenAPI
@@ -163,6 +167,8 @@ apis:
   humanURL: https://signals.gitdealflow.com/developers
   baseURL: https://signals.gitdealflow.com
   tags:
+  - Badges
+  tags_raw:
   - badges
   properties:
   - type: OpenAPI
@@ -191,6 +197,8 @@ apis:
   humanURL: https://signals.gitdealflow.com/developers
   baseURL: https://signals.gitdealflow.com
   tags:
+  - Brands
+  tags_raw:
   - brand
   properties:
   - type: OpenAPI
@@ -219,6 +227,8 @@ apis:
   humanURL: https://signals.gitdealflow.com/developers
   baseURL: https://signals.gitdealflow.com
   tags:
+  - Business Model
+  tags_raw:
   - business-model
   properties:
   - type: OpenAPI
@@ -247,6 +257,8 @@ apis:
   humanURL: https://signals.gitdealflow.com/developers
   baseURL: https://signals.gitdealflow.com
   tags:
+  - Citations
+  tags_raw:
   - citation
   properties:
   - type: OpenAPI
@@ -275,6 +287,8 @@ apis:
   humanURL: https://signals.gitdealflow.com/developers
   baseURL: https://signals.gitdealflow.com
   tags:
+  - Community
+  tags_raw:
   - community
   properties:
   - type: OpenAPI
@@ -331,6 +345,8 @@ apis:
   humanURL: https://signals.gitdealflow.com/developers
   baseURL: https://signals.gitdealflow.com
   tags:
+  - Glossary
+  tags_raw:
   - glossary
   properties:
   - type: OpenAPI
@@ -359,6 +375,8 @@ apis:
   humanURL: https://signals.gitdealflow.com/developers
   baseURL: https://signals.gitdealflow.com
   tags:
+  - Markets
+  tags_raw:
   - markets
   properties:
   - type: OpenAPI
@@ -387,6 +405,8 @@ apis:
   humanURL: https://signals.gitdealflow.com/developers
   baseURL: https://signals.gitdealflow.com
   tags:
+  - Meta
+  tags_raw:
   - meta
   properties:
   - type: OpenAPI
@@ -415,6 +435,8 @@ apis:
   humanURL: https://signals.gitdealflow.com/developers
   baseURL: https://signals.gitdealflow.com
   tags:
+  - Methodology
+  tags_raw:
   - methodology
   properties:
   - type: OpenAPI
@@ -443,6 +465,8 @@ apis:
   humanURL: https://signals.gitdealflow.com/developers
   baseURL: https://signals.gitdealflow.com
   tags:
+  - Scout
+  tags_raw:
   - scout
   properties:
   - type: OpenAPI
@@ -471,6 +495,8 @@ apis:
   humanURL: https://signals.gitdealflow.com/developers
   baseURL: https://signals.gitdealflow.com
   tags:
+  - Search
+  tags_raw:
   - search
   properties:
   - type: OpenAPI
@@ -499,6 +525,8 @@ apis:
   humanURL: https://signals.gitdealflow.com/developers
   baseURL: https://signals.gitdealflow.com
   tags:
+  - Signals
+  tags_raw:
   - signals
   properties:
   - type: OpenAPI

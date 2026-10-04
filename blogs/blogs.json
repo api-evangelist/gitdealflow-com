@@ -1,0 +1,35 @@
+{
+  "repo": "gitdealflow-com",
+  "feeds": [
+    {
+      "source": "https://signals.gitdealflow.com/blog",
+      "feed_url": "https://signals.gitdealflow.com/blog",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
+      "source": "https://signals.gitdealflow.com/api/changelog.json",
+      "feed_url": "https://signals.gitdealflow.com/api/changelog.json",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
+      "source": "https://signals.gitdealflow.com/support",
+      "feed_url": "https://signals.gitdealflow.com/feed.xml",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    },
+    {
+      "source": "https://signals.gitdealflow.com/feed.xml",
+      "feed_url": "https://signals.gitdealflow.com/feed.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    }
+  ],
+  "post_count": 39,
+  "fetched": "2026-10-03T12:30:02Z"
+}
