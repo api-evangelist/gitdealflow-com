@@ -153,6 +153,50 @@ paths:
                 type: string
 components:
   schemas:
+    Startup:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        stage:
+          type: string
+          enum:
+          - Pre-seed
+          - Seed
+          - Series A/B
+          - Growth
+        geography:
+          type: string
+        commitVelocity14d:
+          type: integer
+          description: Total commits over a rolling 14-day window
+        commitVelocityChange:
+          type: string
+          description: Percentage change vs. prior 14-day window (e.g., '+120%')
+        contributors:
+          type: integer
+        contributorGrowth:
+          type: string
+        newRepos:
+          type: integer
+        signalType:
+          type: string
+          enum:
+          - Engineering hiring burst
+          - Infrastructure buildout
+          - Deploy frequency spike
+          - Framework migration
+        githubUrl:
+          type: string
+          format: uri
+        websiteUrl:
+          type: string
+          format: uri
+        linkedinUrl:
+          type: string
+          format: uri
     SignalsResponse:
       type: object
       properties:
@@ -203,50 +247,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Startup'
-    Startup:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        stage:
-          type: string
-          enum:
-          - Pre-seed
-          - Seed
-          - Series A/B
-          - Growth
-        geography:
-          type: string
-        commitVelocity14d:
-          type: integer
-          description: Total commits over a rolling 14-day window
-        commitVelocityChange:
-          type: string
-          description: Percentage change vs. prior 14-day window (e.g., '+120%')
-        contributors:
-          type: integer
-        contributorGrowth:
-          type: string
-        newRepos:
-          type: integer
-        signalType:
-          type: string
-          enum:
-          - Engineering hiring burst
-          - Infrastructure buildout
-          - Deploy frequency spike
-          - Framework migration
-        githubUrl:
-          type: string
-          format: uri
-        websiteUrl:
-          type: string
-          format: uri
-        linkedinUrl:
-          type: string
-          format: uri
   securitySchemes:
     creditPackKey:
       type: http
