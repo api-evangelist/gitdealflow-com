@@ -1,0 +1,12 @@
+{
+ "url": "https://signals.gitdealflow.com/api/openapi.json",
+ "requested_url": "https://signals.gitdealflow.com/api/openapi.json",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 73773,
+ "sha256": "e8fe6095df093afb61ed7e532c95829b0a2aeba0b8ec4597b2275de5c07c3b43",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
