@@ -260,3 +260,77 @@ plans:
   - POST /api/agent/deep-signal/x402
   - HTTP 402 + EIP-3009 transferWithAuthorization, settled by the Coinbase x402 facilitator
   source: observed 402 accepts[] maxAmountRequired 190000 (6-decimal USDC) on 2026-09-19
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - subscription
+  units: []
+  plans:
+  - name: Signal Digest
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Tweet Teardown
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: First Look Pass
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Dashboard
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Insider Circle
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Sharp Tier
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Custom Sector Sweep
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Methodology Partnership
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: The Vault
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Agent Credits (pay-per-call deep signal)
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: x402 pay-per-call (autonomous agents)
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
