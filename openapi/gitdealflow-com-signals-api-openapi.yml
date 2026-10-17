@@ -153,6 +153,24 @@ paths:
                 type: string
 components:
   schemas:
+    Sector:
+      type: object
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        url:
+          type: string
+          format: uri
+        startupCount:
+          type: integer
+        startups:
+          type: array
+          items:
+            $ref: '#/components/schemas/Startup'
     Startup:
       type: object
       properties:
@@ -229,24 +247,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Sector'
-    Sector:
-      type: object
-      properties:
-        name:
-          type: string
-        slug:
-          type: string
-        description:
-          type: string
-        url:
-          type: string
-          format: uri
-        startupCount:
-          type: integer
-        startups:
-          type: array
-          items:
-            $ref: '#/components/schemas/Startup'
   securitySchemes:
     creditPackKey:
       type: http
