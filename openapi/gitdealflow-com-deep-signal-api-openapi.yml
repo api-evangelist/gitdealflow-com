@@ -565,3 +565,9 @@ x-changelog:
   date: '2026-04-22'
   changes:
   - Initial public spec.
+x-provenance:
+  method: harvested
+  publisher: GitDealFlow
+  source: https://signals.gitdealflow.com/api/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
