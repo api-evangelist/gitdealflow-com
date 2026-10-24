@@ -39,7 +39,13 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
+  integrations/_index.yml:
+    method: generated
+    evidence: carries an API Evangelist house phrase
+  integrations/gitdealflow-com-integration-edges.yml:
+    method: searched
+    evidence: declared in the artifact
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-19T193153.yml:
@@ -72,6 +78,21 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/gitdealflow-com-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
@@ -89,14 +110,105 @@ artifacts:
     evidence: declared in the artifact
   openapi/_original/gitdealflow-com-signals-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
-  openapi/gitdealflow-com-signals-openapi.yml:
+    evidence: the same operations as https://signals.gitdealflow.com/api/openapi.json (sha256 e8fe6095df09,
+      fetched 2026-10-04)
+  openapi/_original/gitdealflow-com-signals-openapi.yml:
+    method: harvested
+    evidence: the same operations as https://signals.gitdealflow.com/api/openapi.json (sha256 e8fe6095df09,
+      fetched 2026-10-04)
+  openapi/gitdealflow-com-agents-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  overlays/gitdealflow-com-signals-overlay.yaml:
+  openapi/gitdealflow-com-answer-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/gitdealflow-com-badges-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/gitdealflow-com-brand-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/gitdealflow-com-business-model-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/gitdealflow-com-citation-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/gitdealflow-com-community-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/gitdealflow-com-deep-signal-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/gitdealflow-com-glossary-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/gitdealflow-com-markets-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/gitdealflow-com-meta-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/gitdealflow-com-methodology-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/gitdealflow-com-scout-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/gitdealflow-com-search-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/gitdealflow-com-signals-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  overlays/gitdealflow-com-agents-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/gitdealflow-com-answer-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/gitdealflow-com-badges-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/gitdealflow-com-brand-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/gitdealflow-com-business-model-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/gitdealflow-com-citation-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/gitdealflow-com-community-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/gitdealflow-com-deep-signal-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/gitdealflow-com-glossary-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/gitdealflow-com-markets-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/gitdealflow-com-meta-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/gitdealflow-com-methodology-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/gitdealflow-com-scout-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/gitdealflow-com-search-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/gitdealflow-com-signals-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/gitdealflow-com-signals-overlay.yaml:
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   packages/gitdealflow-com-packages.yml:
     method: searched
     evidence: declared in the artifact
